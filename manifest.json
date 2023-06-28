@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "studyBlock",
+  "version": "1.0",
+  "description": "Maximize productivity of a study session",
+
+  "permissions" : [
+    "storage"
+  ],
+
+  "action": {
+        "default_popup": "popup.html"
+  }
+
+  
+}

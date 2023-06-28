@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>studyBlock</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" defer></script>
+</head>
+<body>
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" id="Tab1">Timer</button>
+        <button class="tablinks" id="Tab2">To Do</button>
+        <button class="tablinks" id="Tab3">Block Websites</button>
+    </div>
+    
+    <!-- Tab content -->
+    <div id="Timer" class="tabcontent">
+        <h3>Timer + Task Block</h3>
+    </div>
+    
+    <button id="timeVariables">See Vars</button>
+    
+    <div id="Tasks" class="tabcontent">
+        <h3>Task Manager</h3>
+
+        
+        <label for="timeOfBlock">Choose length of study session:</label>
+        <input id="timeOfBlock" name="timeOfBlock" placeholder="0:00"></input>
+
+        <button id="submitTimeOfBlock">Submit Time of Block</button>
+      
+       
+        <button id="addTask">Add Task</button>
+
+        <div id="taskList"></div>
+
+        <div id="timeScheduled"></div>
+
+    </div>
+    
+    <div id="WebBlock" class="tabcontent">
+        <h3>Web Blocker</h3>
+    </div>
+    
+</body>
+</html>
