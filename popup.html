@@ -4,45 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>studyBlock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="popup.css">
     <script src="popup.js" defer></script>
 </head>
 <body>
+    
+   
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks" id="Tab1">Timer</button>
-        <button class="tablinks" id="Tab2">To Do</button>
-        <button class="tablinks" id="Tab3">Block Websites</button>
+        <button class="tablinks" id="Tab1"><i class='material-symbols-outlined'>pace</i></button>
+        <button class="tablinks" id="Tab2"><i class='material-symbols-outlined'>lists</i></button>
+        <button class="tablinks" id="Tab3"><i class='material-symbols-outlined'>block</i></button>
     </div>
-    
-    <!-- Tab content -->
-    <div id="Timer" class="tabcontent">
-        <h3>Timer + Task Block</h3>
-    </div>
-    
-    <button id="timeVariables">See Vars</button>
-    
-    <div id="Tasks" class="tabcontent">
-        <h3>Task Manager</h3>
-
+  
+    <div id = main-background>    
+        <!-- Tab content -->
+        <div id="timer" class="tabcontent">
+            <h3>Timer + Task Block</h3>
+        </div>
         
-        <label for="timeOfBlock">Choose length of study session:</label>
-        <input id="timeOfBlock" name="timeOfBlock" placeholder="0:00"></input>
+        <div id="tasks" class="tabcontent">
+            <div id="tasksHeaderContainer">
+                <h3>Create Study Block</h3>
+            </div>
+            <!-- <button id="timeVariables">See Vars</button> -->
+            <div id="timeOfBlockContainter">
+                
+                    <label for="timeOfBlock">Set length of study session:</label>
+                    <input id="timeOfBlock" name="timeOfBlock" placeholder="0:00"></input>
+                
+                <div id="timeOfBlockButtons">
+                    <!-- TODO: submitTimeOfBlock shoudl become editTimeOfBlock -->
+                    <button id="submitTimeOfBlock"><i class='material-symbols-outlined'>edit_square</i></button>
+                    <button id="addTask"><i class='material-symbols-outlined'>add_task</i></button>
+                </div>
 
-        <button id="submitTimeOfBlock">Submit Time of Block</button>
-      
-       
-        <button id="addTask">Add Task</button>
+                <div id="errorMessage">Add up to three tasks. Drag tasks to order.</div>
+            </div>
 
-        <div id="taskList"></div>
+            <div id="taskList"></div>
 
-        <div id="timeScheduled"></div>
+            <div id="schedulingContainer">
+                <div id="progressBar"></div>
+                <div id="timeScheduled"></div>
+            </div>
 
+        </div>
+        
+        <div id="webBlock" class="tabcontent">
+            <h3>Web Blocker</h3>
+        </div>
     </div>
-    
-    <div id="WebBlock" class="tabcontent">
-        <h3>Web Blocker</h3>
-    </div>
-    
 </body>
 </html>
+
+

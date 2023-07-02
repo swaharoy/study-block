@@ -2,9 +2,9 @@
 
 //Other restrictions: min value of input time is 0
 
-document.getElementById("Tab1").addEventListener("click", () => openTab("Timer"));
-document.getElementById("Tab2").addEventListener("click", () => openTab("Tasks"));
-document.getElementById("Tab3").addEventListener("click", () => openTab("WebBlock"));
+document.getElementById("Tab1").addEventListener("click", () => openTab("timer"));
+document.getElementById("Tab2").addEventListener("click", () => openTab("tasks"));
+document.getElementById("Tab3").addEventListener("click", () => openTab("webBlock"));
 
 let gtimeOfBlock = 0
 let gtask1time = 0
@@ -29,7 +29,7 @@ function openTab(tabID) {
   }
 }
 
-document.getElementById("submitTimeOfBlock").addEventListener("click", () => setTotalTime());
+document.getElementById("timeOfBlock").addEventListener("blur", () => setTotalTime());
 valid = false;
 
 //unsued function
@@ -87,7 +87,7 @@ function setTotalTime(){
   } else{
     setTime(timeOfBlockInput, "timeOfBlock")
   }
-  timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
+  
 }
 
 function setTaskTime(e){
@@ -121,12 +121,23 @@ function addTask(){
     document.getElementById("taskList").appendChild(newTask)
 
     document.getElementById(`task${totalTasks}`).innerHTML = `
-        <input id="task${totalTasks}descrip" placeholder="Describe task."></input>
-        <input id="task${totalTasks}time" placeholder="0:00"></input>
-        <button id="task${totalTasks}submit" class="tasksubmit">submit task</button>
-      `
+      
+      <div class = "taskButtons">
+        <button id="task${totalTasks}submit" class="tasksubmit"><i class='material-symbols-outlined mini'>close</i></button>
+        <button id="task${totalTasks}delete" class="taskdelete"><i class='material-symbols-outlined mini'>edit_square</i></button>
+      </div>
+      <div class = "taskInputs">
+        <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>
+        <input id="task${totalTasks}time" class = "taskTime" placeholder="0:00"></input>
+      </div>
+        `
     updateDraggables()
     updateTaskSubmits()
+
+    if (totalTasks === 1){
+      timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
+      document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
+    }
   }
 }
 
