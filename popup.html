@@ -31,19 +31,35 @@
             <div id="tasksHeaderContainer">
                 <h3>Create Study Block</h3>
             </div>
-            <!-- <button id="timeVariables">See Vars</button> -->
+
+            <button id="timeVariables">See Vars</button>
+
             <div id="timeOfBlockContainter">
+                <div>Set length of study session:</div>
                 
-                    <label for="timeOfBlock">Set length of study session:</label>
-                    <input id="timeOfBlock" name="timeOfBlock" placeholder="0:00"></input>
-                
+                <div class="timeInputContainer">
+                    <div id = "timeInput">
+                        <label for="timeOfBlockHours">
+                            <span class="label lbl-hrs">hours</span>
+                            <input type="number" id="timeOfBlockHours" class = "time" value="0" min="0" max="9"></input>
+                        </label>
+                        <span>:</span>
+                        <label for="timeOfBlockMins">
+                            <span class="label lbl-mins">minutes</span>
+                            <input type="number" id="timeOfBlockMins" class = "time" value="00" min="0" max="59"></input>
+                        </label>
+                    </div>
+                    <div id="maxTime">Schedule up to 9:59.</div>
+                </div>
+
+
                 <div id="timeOfBlockButtons">
                     <!-- TODO: submitTimeOfBlock shoudl become editTimeOfBlock -->
                     <button id="submitTimeOfBlock"><i class='material-symbols-outlined'>edit_square</i></button>
                     <button id="addTask"><i class='material-symbols-outlined'>add_task</i></button>
                 </div>
 
-                <div id="errorMessage">Add up to three tasks. Drag tasks to order.</div>
+                <div id="instructions">Add up to three tasks. Drag tasks to order.</div>
             </div>
 
             <div id="taskList"></div>

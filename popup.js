@@ -1,15 +1,10 @@
 
 
-//Other restrictions: min value of input time is 0
 
+//Tab Functionality
 document.getElementById("Tab1").addEventListener("click", () => openTab("timer"));
 document.getElementById("Tab2").addEventListener("click", () => openTab("tasks"));
 document.getElementById("Tab3").addEventListener("click", () => openTab("webBlock"));
-
-let gtimeOfBlock = 0
-let gtask1time = 0
-let gtask2time = 0
-let gtask3time = 0
 
 function openTab(tabID) {
 
@@ -29,20 +24,45 @@ function openTab(tabID) {
   }
 }
 
-document.getElementById("timeOfBlock").addEventListener("blur", () => setTotalTime());
+let gtimeOfBlock = 0
+let gtask1time = 0
+let gtask2time = 0
+let gtask3time = 0
+
+document.getElementById("submitTimeOfBlock").addEventListener("click", () => setTotalTime());
 valid = false;
 
-//unsued function
-function getTime(elemId){
-  chrome.storage.local.get([`${elemId}`]).then((result) => {
-    console.log("Value currently is " + result.key)
-  })
+let timeValidations = [...document.getElementsByClassName("time")]
+
+timeValidations.forEach((timeValidation) => {
+  timeValidation.addEventListener("keyup", (e) => restrictTimeInput(e, timeValidation))
+});
+
+function restrictTimeInput(e, timeValidation){
+  let val = e.target.value
+  let id = e.target.getAttribute("id")
+  let length =val.length
+
+  //Prevent nondigits
+  val.replace(/\D/, "")
+
+  //Restricts value for hour/mins
+  if(id === "timeOfBlockHours" && length > 1) {
+    timeValidation.value = val.substring(0, 1);
+  } else if (id === "timeOfBlockMins"){
+    if(length > 2){
+      timeValidation.value = val.substring(0, 2);
+    }
+    if(val>59){
+      timeValidation.value = 59;
+    }
+  }
 }
 
-function setTime(timeInput, elemId){
+function setTime(timeInputHours, timeInputMins, elemId){
   
-  const hours = parseInt(timeInput.charAt(0))
-  const minutes = parseInt(timeInput.slice(2))
+  const hours = parseInt(timeInputHours)
+  const minutes = parseInt(timeInputMins)
 
   const time = (hours * 60) + minutes
   console.log(elemId, time)
@@ -80,26 +100,20 @@ function setTime(timeInput, elemId){
 }
 
 function setTotalTime(){
-  const timeOfBlockInput = document.getElementById("timeOfBlock").value;
+  const timeOfBlockInputHours = document.getElementById("timeOfBlockHours").value;
+  const timeOfBlockInputMins = document.getElementById("timeOfBlockMins").value;
 
-  if(!/^([0-9]:[0-9][0-9])$/.test(timeOfBlockInput)){
-    alert('Please input correct time format: h:mm. You may schedule a maximum of 9 hours.')
-  } else{
-    setTime(timeOfBlockInput, "timeOfBlock")
-  }
-  
+  setTime(timeOfBlockInputHours, timeOfBlockInputMins, "timeOfBlock")
 }
 
 function setTaskTime(e){
   const taskNum = e.target.id.charAt(4)
-  const timeOfTaskInput = document.getElementById(`task${taskNum}time`).value;
-  
-  if(!/^([0-9]:[0-9][0-9])$/.test(timeOfTaskInput)){
-    alert('Please input correct time format: h:mm.')
-  } 
-  else {
-    setTime(timeOfTaskInput, `task${taskNum}time`)
-  }
+  console.log("hello", e.target)
+ 
+  const timeOfTaskInputHours = document.getElementById(`task${taskNum}timeHours`).value;
+  const timeOfTaskInputMins = document.getElementById(`task${taskNum}timeMins`).value;
+
+  setTime(timeOfTaskInputHours, timeOfTaskInputMins, "task${taskNum}time")
 }
 
 document.getElementById("addTask").addEventListener("click", () => addTask());
@@ -123,13 +137,29 @@ function addTask(){
     document.getElementById(`task${totalTasks}`).innerHTML = `
       
       <div class = "taskButtons">
-        <button id="task${totalTasks}submit" class="tasksubmit"><i class='material-symbols-outlined mini'>close</i></button>
-        <button id="task${totalTasks}delete" class="taskdelete"><i class='material-symbols-outlined mini'>edit_square</i></button>
+        <button id="task${totalTasks}submit" class="tasksubmit"><i class='material-symbols-outlined mini'>edit_square</i></button>
+        <button id="task${totalTasks}delete" class="taskdelete"><i class='material-symbols-outlined mini'>close</i></button>
       </div>
-      <div class = "taskInputs">
+    
         <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>
-        <input id="task${totalTasks}time" class = "taskTime" placeholder="0:00"></input>
-      </div>
+        
+     
+        <!-- <input id="task${totalTasks}time" class = "taskTime" placeholder="0:00"></input> -->
+        
+        <div class="timeInputContainer">
+                    <div class = "timeTaskInput">
+                        <label for="timeOfBlockHours">
+                            <span class="label lbl-hrs">hrs</span>
+                            <input type="number" id="task${totalTasks}timeHours" class = "time" value="0" min="0" max="9"></input>
+                        </label>
+                        <span>:</span>
+                        <label for="timeOfBlockMins">
+                            <span class="label lbl-mins">mins</span>
+                            <input type="number" id="task${totalTasks}timeMins" class = "time" value="00" min="0" max="59"></input>
+                        </label>
+                    </div>
+                    <div id="maxTime">Schedule up to 9:59.</div>
+        </div>
         `
     updateDraggables()
     updateTaskSubmits()
@@ -221,3 +251,12 @@ function timeScheduled(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask
   console.log(gtask2time)
   console.log(gtask3time)
  })
+
+
+
+ //unsued function
+function getTime(elemId){
+  chrome.storage.local.get([`${elemId}`]).then((result) => {
+    console.log("Value currently is " + result.key)
+  })
+}
