@@ -16,6 +16,10 @@ document.addEventListener('click',(e) => {
     setTotalTime()
   }
 
+  if(e.target.matches("#addTask")){
+    addTask()
+  }
+
   if (e.target.matches(".tasksubmit")){
     setTaskTime(e)}
 })
@@ -68,11 +72,11 @@ function restrictTimeInput(e, timeValidation){
   val.replace(/\D/, "")
 
   //Restricts value for hour/mins
-  if(id === "timeOfBlockHours" && length > 1) {
-    timeValidated.value = val.substring(0, 1);
-  } else if (id === "timeOfBlockMins"){
+  if(id.charAt(id.length - 5) === "H" && length > 1) {
+    timeValidated.value = val.substring(length-1);
+  } else{
     if(length > 2){
-      timeValidated.value = val.substring(0, 2);
+      timeValidated.value = val.substring(length-2);
     }
     if(val>59){
       timeValidated.value = 59;
@@ -115,9 +119,6 @@ function setTime(timeInputHours, timeInputMins, elemId){
           timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
       }
   }
-  
-  
-  
 }
 
 function setTotalTime(){
@@ -134,12 +135,10 @@ function setTaskTime(e){
   const timeOfTaskInputHours = document.getElementById(`task${taskNum}timeHours`).value;
   const timeOfTaskInputMins = document.getElementById(`task${taskNum}timeMins`).value;
 
-  setTime(timeOfTaskInputHours, timeOfTaskInputMins, "task${taskNum}time")
+  setTime(timeOfTaskInputHours, timeOfTaskInputMins, `task${taskNum}time`)
 }
 
-document.getElementById("addTask").addEventListener("click", () => addTask());
 let totalTasks = 0;
-
 function addTask(){
   if(!valid){
     alert('Please enter total time first')
@@ -156,35 +155,27 @@ function addTask(){
     document.getElementById("taskList").appendChild(newTask)
 
     document.getElementById(`task${totalTasks}`).innerHTML = `
-      
       <div class = "taskButtons">
         <button id="task${totalTasks}submit" class="tasksubmit"><i class='material-symbols-outlined mini'>edit_square</i></button>
         <button id="task${totalTasks}delete" class="taskdelete"><i class='material-symbols-outlined mini'>close</i></button>
       </div>
     
-        <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>
-        
-     
-        <!-- <input id="task${totalTasks}time" class = "taskTime" placeholder="0:00"></input> -->
-        
+      <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>        
         <div class="timeInputContainer">
-                    <div class = "timeTaskInput">
-                        <label for="timeOfBlockHours">
-                            <span class="label lbl-hrs">hrs</span>
-                            <input type="number" id="task${totalTasks}timeHours" class = "time" value="0" min="0" max="9"></input>
-                        </label>
-                        <span>:</span>
-                        <label for="timeOfBlockMins">
-                            <span class="label lbl-mins">mins</span>
-                            <input type="number" id="task${totalTasks}timeMins" class = "time" value="00" min="0" max="59"></input>
-                        </label>
-                    </div>
-                    <div id="maxTime">Schedule up to 9:59.</div>
-        </div>
-        `
-    //updateDraggables()
-    //updateTaskSubmits()
-
+           <div class = "timeTaskInput">
+              <label for="timeOfBlockHours">
+                <span class="label lbl-hrs">hrs</span>
+                <input type="number" id="task${totalTasks}timeHours" class = "time" value="0" min="0" max="9"></input>
+              </label>
+              <span>:</span>
+              <label for="timeOfBlockMins">
+                <span class="label lbl-mins">mins</span>
+                <input type="number" id="task${totalTasks}timeMins" class = "time" value="00" min="0" max="59"></input>
+              </label>
+          </div>
+          <div id="maxTime">Schedule up to 9:59.</div>
+      </div>
+      `
     if (totalTasks === 1){
       timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
       document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
@@ -224,10 +215,8 @@ function reorderList(taskList, y){
 //Math: input time for tasks
 function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, timeOfTaskRequested = 0){
   if ((timeOfTask1 + timeOfTask2 + timeOfTask3 + timeOfTaskRequested) <= timeOfBlock){
-    //alert('success')
     return true
   } else {
-    alert("fail")
     return false
   }
   }
@@ -238,12 +227,13 @@ function timeScheduled(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask
   return document.getElementById('timeScheduled').innerHTML = `${timeScheduled} scheduled. ${timeRemaining} remaining.`
 }
 
- document.getElementById("timeVariables").addEventListener("click", () => {
-  console.log(gtimeOfBlock)
-  console.log(gtask1time)
-  console.log(gtask2time)
-  console.log(gtask3time)
- })
+// //DEV: debug 
+//  document.getElementById("timeVariables").addEventListener("click", () => {
+//   console.log(gtimeOfBlock)
+//   console.log(gtask1time)
+//   console.log(gtask2time)
+//   console.log(gtask3time)
+//  })
 
 
 

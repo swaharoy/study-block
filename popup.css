@@ -158,7 +158,7 @@ body {
     outline: 2px solid var(--outline);
   }
 
-  #timeInput input:invalid{
+  #timeInput input:invalid, .timeTaskInput input:invalid{
     outline: 3px solid rgb(255, 0, 0);
   }
 
@@ -251,7 +251,7 @@ body {
     gap: 0px;
   }
 
-  .taskDescrip, .taskTime{
+  .taskDescrip{
     box-sizing: border-box;
     width: 100%;
     height: 100%
