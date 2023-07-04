@@ -4,12 +4,12 @@
 document.addEventListener('dragstart',(e) => {
   if (e.target.matches(".draggable")){
     e.target.classList.add('dragging')}
-  })
+})
 
 document.addEventListener('dragend',(e) => {
     if (e.target.matches(".draggable")){
       e.target.classList.remove('dragging')}
-    })
+})
 
 document.addEventListener('click',(e) => {
   if(e.target.matches("#submitTimeOfBlock")){
@@ -20,8 +20,11 @@ document.addEventListener('click',(e) => {
     setTaskTime(e)}
 })
 
-
-
+document.addEventListener('keyup',(e) => {
+  if (e.target.matches(".time")){
+    restrictTimeInput(e, e)
+    console.log(e.target)}
+})
 
 //Tab Functionality
 document.getElementById("Tab1").addEventListener("click", () => openTab("timer"));
@@ -51,32 +54,28 @@ let gtask1time = 0
 let gtask2time = 0
 let gtask3time = 0
 
-
+//TODO: valid variable purpose??
 valid = false;
 
-let timeValidations = [...document.getElementsByClassName("time")]
-
-timeValidations.forEach((timeValidation) => {
-  timeValidation.addEventListener("keyup", (e) => restrictTimeInput(e, timeValidation))
-});
-
+//TODO: understand why passing e into both parameters fucntions
 function restrictTimeInput(e, timeValidation){
   let val = e.target.value
   let id = e.target.getAttribute("id")
   let length =val.length
+  let timeValidated = timeValidation.target
 
   //Prevent nondigits
   val.replace(/\D/, "")
 
   //Restricts value for hour/mins
   if(id === "timeOfBlockHours" && length > 1) {
-    timeValidation.value = val.substring(0, 1);
+    timeValidated.value = val.substring(0, 1);
   } else if (id === "timeOfBlockMins"){
     if(length > 2){
-      timeValidation.value = val.substring(0, 2);
+      timeValidated.value = val.substring(0, 2);
     }
     if(val>59){
-      timeValidation.value = 59;
+      timeValidated.value = 59;
     }
   }
 }
