@@ -21,6 +21,8 @@ body {
     padding: 0px;
   }
 
+
+
 #main-background{
   background-color: var(--tab-background);
   width: 430px;
@@ -31,7 +33,8 @@ body {
 }
 
 .material-symbols-outlined{
-  color: black
+  color: black;
+  pointer-events: none; 
 }
 
 .tab {
@@ -176,7 +179,7 @@ body {
   .timeTaskInput .label{
     background: var(--secondary_accent)
   }
-  
+
   #timeOfBlockButtons{
     display: flex;
     flex-direction: column;

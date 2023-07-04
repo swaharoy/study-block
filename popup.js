@@ -1,5 +1,27 @@
 
 
+//Event Delegation
+document.addEventListener('dragstart',(e) => {
+  if (e.target.matches(".draggable")){
+    e.target.classList.add('dragging')}
+  })
+
+document.addEventListener('dragend',(e) => {
+    if (e.target.matches(".draggable")){
+      e.target.classList.remove('dragging')}
+    })
+
+document.addEventListener('click',(e) => {
+  if(e.target.matches("#submitTimeOfBlock")){
+    setTotalTime()
+  }
+
+  if (e.target.matches(".tasksubmit")){
+    setTaskTime(e)}
+})
+
+
+
 
 //Tab Functionality
 document.getElementById("Tab1").addEventListener("click", () => openTab("timer"));
@@ -29,7 +51,7 @@ let gtask1time = 0
 let gtask2time = 0
 let gtask3time = 0
 
-document.getElementById("submitTimeOfBlock").addEventListener("click", () => setTotalTime());
+
 valid = false;
 
 let timeValidations = [...document.getElementsByClassName("time")]
@@ -161,41 +183,13 @@ function addTask(){
                     <div id="maxTime">Schedule up to 9:59.</div>
         </div>
         `
-    updateDraggables()
-    updateTaskSubmits()
+    //updateDraggables()
+    //updateTaskSubmits()
 
     if (totalTasks === 1){
       timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
       document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
     }
-  }
-}
-
-function updateTaskSubmits(){
-  const addedTasks = [...document.getElementsByClassName("tasksubmit")]
-  i = 0
-  console.log(addedTasks)
-  if (totalTasks != 0){
-    addedTasks.forEach(task => {
-      i +=1
-      task.addEventListener('click', e => setTaskTime(e))
-    })
-  }
-} 
-
-function updateDraggables(){
-  const draggables = [...document.getElementsByClassName("draggable")]
-
-  if (totalTasks != 0){
-    draggables.forEach(draggable => {
-      draggable.addEventListener('dragstart', () => {
-        draggable.classList.add('dragging')
-      })
-
-      draggable.addEventListener('dragend', () => {
-        draggable.classList.remove('dragging')
-      })
-    })
   }
 }
 
