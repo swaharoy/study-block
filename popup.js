@@ -3,6 +3,7 @@
 //TODO: something to emphasize that you can drag and drop
 //TODO: fix progress bar
 //TODO: change wording of schedule up to 9:59
+//TODO: time of block set must be greater than 0
 
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
@@ -170,25 +171,20 @@ function addTask(){
     document.getElementById("taskList").appendChild(newTask)
 
     document.getElementById(`task${totalTasks}`).innerHTML = `
-      <div class = "taskButtons">
-        <button id="task${totalTasks}submit" class="tasksubmit"><i class='material-symbols-outlined mini'>edit_square</i></button>
-        <button id="task${totalTasks}delete" class="taskdelete"><i class='material-symbols-outlined mini'>close</i></button>
-      </div>
-    
+      <button id="task${totalTasks}delete" class="deleteTask"><i class='material-symbols-outlined mini'>close</i></button>
+
       <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>        
-        <div class="timeInputContainer">
-           <div class = "timeTaskInput">
-              <label for="timeOfBlockHours">
-                <span class="label lbl-hrs">hrs</span>
-                <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="0" min="0" max="9"></input>
-              </label>
-              <span>:</span>
-              <label for="timeOfBlockMins">
-                <span class="label lbl-mins">mins</span>
-                <input type="number" id="task${totalTasks}timeMins" class = "time timeTask" value="00" min="0" max="59"></input>
-              </label>
-          </div>
-          <div id="maxTime">Schedule up to 9:59.</div>
+
+      <div class = "timeTaskInput">
+          <label for="timeOfBlockHours">
+            <span class="label lbl-hrs">hrs</span>
+            <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="0" min="0" max="9"></input>
+          </label>
+          <span>:</span>
+          <label for="timeOfBlockMins">
+            <span class="label lbl-mins">mins</span>
+            <input type="number" id="task${totalTasks}timeMins" class = "time timeTask" value="00" min="0" max="59"></input>
+          </label>
       </div>
       `
   }

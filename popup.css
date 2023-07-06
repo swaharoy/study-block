@@ -21,8 +21,6 @@ body {
     padding: 0px;
   }
 
-
-
 #main-background{
   background-color: var(--tab-background);
   width: 430px;
@@ -56,9 +54,6 @@ body {
     border: solid medium var(--outline_select);
     border-bottom: none;
     margin: -3px;
-    
-    
-    /* flex-grow: 1; */
   }
   
   .tab button:hover {
@@ -180,13 +175,7 @@ body {
     background: var(--secondary_accent)
   }
 
-  #timeOfBlockButtons{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-
-  #timeOfBlockButtons button{
+  #addTask{
     background: none;
     border: none;
   }
@@ -194,6 +183,7 @@ body {
   #maxTime{
     font-size: 12px;
   }
+
   #instructions{
     background-color: var(--yellow_accent);
     font-weight: 400;
@@ -238,17 +228,10 @@ body {
     transition: 0.3s;
   }
 
-  .taskButtons{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-left: 0px;
-  }
-
-  .taskButtons button{
+  
+  .deleteTask{
     background: none;
     border: none;
-    gap: 0px;
   }
 
   .taskDescrip{
