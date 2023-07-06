@@ -1,4 +1,8 @@
 
+//TODO: clear input field at click? something to preveent the minute reset
+//TODO: something to emphasize that you can drag and drop
+//TODO: fix progress bar
+//TODO: change wording of schedule up to 9:59
 
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
@@ -31,7 +35,7 @@ document.addEventListener('click',(e) => {
 document.addEventListener('keyup',(e) => {
   if (e.target.matches(".time")){
     restrictTimeInput(e, e)
-    console.log(e.target)}
+  }
 })
 
 //Tab Functionality
@@ -62,10 +66,9 @@ let gtask1time = 0
 let gtask2time = 0
 let gtask3time = 0
 
-//TODO: valid variable purpose??
-valid = false;
-
 //TODO: understand why passing e into both parameters fucntions
+
+
 function restrictTimeInput(e, timeValidation){
   let val = e.target.value
   let id = e.target.getAttribute("id")
@@ -94,19 +97,22 @@ function setTime(timeInputHours, timeInputMins, elemId){
   const minutes = parseInt(timeInputMins)
 
   const time = (hours * 60) + minutes
-  console.log(elemId, time)
 
   chrome.storage.local.set({elemId: time}).then(() =>
   {
     console.log("Value is set")
-    valid = true;
   })
 
   switch(elemId){
     case 'timeOfBlock':
-      gtimeOfBlock = 0
-      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
-      gtimeOfBlock = time
+      if(!initialTimeOfBlockSet){
+        gtimeOfBlock = time;
+        initialTimeOfBlockSet = true;}
+      else{
+        gtimeOfBlock = 0
+        inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
+        gtimeOfBlock = time
+      }
       break;
     case 'task1time':
       gtask1time = 0
@@ -125,6 +131,9 @@ function setTime(timeInputHours, timeInputMins, elemId){
       break;
   }
 
+  timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
+  document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
+
 }
 
 function setTotalTime(){
@@ -136,7 +145,6 @@ function setTotalTime(){
 
 function setTaskTime(e){
   const taskNum = e.target.id.charAt(4)
-  console.log("hello", e.target)
  
   const timeOfTaskInputHours = document.getElementById(`task${taskNum}timeHours`).value;
   const timeOfTaskInputMins = document.getElementById(`task${taskNum}timeMins`).value;
@@ -145,9 +153,10 @@ function setTaskTime(e){
 }
 
 let totalTasks = 0;
+let initialTimeOfBlockSet = false;
 function addTask(){
-  if(!valid){
-    alert('Please enter total time first')
+  if(!initialTimeOfBlockSet){
+    alert('Must set time of block first')
   } else if (totalTasks >= 3) {
     alert('You cannot add more than three tasks')
   } else {
@@ -182,10 +191,6 @@ function addTask(){
           <div id="maxTime">Schedule up to 9:59.</div>
       </div>
       `
-    if (totalTasks === 1){
-      timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-      document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
-    }
   }
 }
 
@@ -221,6 +226,7 @@ function reorderList(taskList, y){
 //Math: input time for tasks
 function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, timeOfTaskRequested = 0){
   if ((timeOfTask1 + timeOfTask2 + timeOfTask3 + timeOfTaskRequested) <= timeOfBlock){
+    console.log("in bound")
     return true
   } else {
     console.log("out of bound")
