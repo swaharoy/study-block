@@ -11,17 +11,21 @@ document.addEventListener('dragend',(e) => {
       e.target.classList.remove('dragging')}
 })
 
-document.addEventListener('click',(e) => {
-  if(e.target.matches("#submitTimeOfBlock")){
+document.addEventListener('focusout',(e) => {
+  if(e.target.matches("#timeOfBlockHours") || e.target.matches("#timeOfBlockMins")){
     setTotalTime()
   }
+
+  if (e.target.matches(".timeTask")){
+    setTaskTime(e)
+  }
+})
+
+document.addEventListener('click',(e) => {
 
   if(e.target.matches("#addTask")){
     addTask()
   }
-
-  if (e.target.matches(".tasksubmit")){
-    setTaskTime(e)}
 })
 
 document.addEventListener('keyup',(e) => {
@@ -98,27 +102,29 @@ function setTime(timeInputHours, timeInputMins, elemId){
     valid = true;
   })
 
-  if (elemId === 'timeOfBlock'){
+  switch(elemId){
+    case 'timeOfBlock':
+      gtimeOfBlock = 0
+      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
       gtimeOfBlock = time
+      break;
+    case 'task1time':
       gtask1time = 0
+      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
+      gtask1time = time
+      break;
+    case 'task2time':
       gtask2time = 0
+      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
+      gtask2time = time
+      break;
+    case 'task3time':
       gtask3time = 0
-      //need code to clear inputs of tasks
-  } else {
-      if (!inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)) {
-        alert('Please change requested time')
-      } 
-      else if (elemId === 'task1time') {
-          gtask1time = time
-          timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-      } else if (elemId === 'task2time') {
-          gtask2time = time
-          timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-      } else {
-          gtask3time = time
-          timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-      }
+      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
+      gtask3time = time
+      break;
   }
+
 }
 
 function setTotalTime(){
@@ -165,12 +171,12 @@ function addTask(){
            <div class = "timeTaskInput">
               <label for="timeOfBlockHours">
                 <span class="label lbl-hrs">hrs</span>
-                <input type="number" id="task${totalTasks}timeHours" class = "time" value="0" min="0" max="9"></input>
+                <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="0" min="0" max="9"></input>
               </label>
               <span>:</span>
               <label for="timeOfBlockMins">
                 <span class="label lbl-mins">mins</span>
-                <input type="number" id="task${totalTasks}timeMins" class = "time" value="00" min="0" max="59"></input>
+                <input type="number" id="task${totalTasks}timeMins" class = "time timeTask" value="00" min="0" max="59"></input>
               </label>
           </div>
           <div id="maxTime">Schedule up to 9:59.</div>
@@ -217,6 +223,7 @@ function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, timeO
   if ((timeOfTask1 + timeOfTask2 + timeOfTask3 + timeOfTaskRequested) <= timeOfBlock){
     return true
   } else {
+    console.log("out of bound")
     return false
   }
   }
