@@ -1,10 +1,7 @@
 
-//TODO: clear input field at click? something to preveent the minute reset
 //TODO: something to emphasize that you can drag and drop
 //TODO: fix progress bar
-//TODO: change wording of schedule up to 9:59
 //TODO: time of block set must be greater than 0
-//TODO: add padding of zeroes
 
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
@@ -17,12 +14,20 @@ document.addEventListener('dragend',(e) => {
       e.target.classList.remove('dragging')}
 })
 
+document.addEventListener('focusin', (e) => {
+  if(e.target.matches("#timeOfBlockHours") || e.target.matches("#timeOfBlockMins") || e.target.matches(".timeTask")){
+    e.target.value = ""
+  }
+})
+
 document.addEventListener('focusout',(e) => {
   if(e.target.matches("#timeOfBlockHours") || e.target.matches("#timeOfBlockMins")){
+    formatTimeInput(e, e)
     setTotalTime()
   }
 
   if (e.target.matches(".timeTask")){
+    formatTimeInput(e, e)
     setTaskTime(e)
   }
 })
@@ -83,15 +88,29 @@ function restrictTimeInput(e, timeValidation){
   val.replace(/\D/, "")
 
   //Restricts value for hour/mins
-  if(id.charAt(id.length - 5) === "H" && length > 1) {
-    timeValidated.value = val.substring(length-1);
-  } else{
-    if(length > 2){
-      timeValidated.value = val.substring(length-2);
-    }
-    if(val>59){
+  if(length > 2){
+    timeValidated.value = val.substring(0,2);
+  }
+
+  //Enforces max time of 23:59
+  if(id.charAt(id.length - 5) === "H" && timeValidated.value>23) {
+      timeValidated.value = 23;
+  } else if (id.charAt(id.length - 5) != "H" && timeValidated.value>59){
       timeValidated.value = 59;
     }
+}
+
+function formatTimeInput(e, timeFormatting){
+  let val = e.target.value
+  let timeFormatted = timeFormatting.target
+  
+  if (val === ""){
+    timeFormatted.value = "00"
+  }
+
+  //Leading zeroes
+  if(!isNaN(val) && val.length === 1) {
+    timeFormatted.value = '0' + val;
   }
 }
 
@@ -170,7 +189,7 @@ function addTask(){
       <div id="timeInput${totalTasks}" class = "timeTaskInput">
           <label for="timeOfBlockHours">
             <span class="label lbl-hrs">hrs</span>
-            <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="0" min="0" max="9"></input>
+            <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="00" min="0" max="23"></input>
           </label>
           <span>:</span>
           <label for="timeOfBlockMins">

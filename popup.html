@@ -37,21 +37,18 @@
             <div id="timeOfBlockContainter">
                 <div>Set length of study session:</div>
                 
-                <div class="timeInputContainer">
-                    <div id = "timeInput">
-                        <label for="timeOfBlockHours">
-                            <span class="label lbl-hrs">hours</span>
-                            <input type="number" id="timeOfBlockHours" class = "time" value="0" min="0" max="9"></input>
-                        </label>
-                        <span>:</span>
-                        <label for="timeOfBlockMins">
-                            <span class="label lbl-mins">minutes</span>
-                            <input type="number" id="timeOfBlockMins" class = "time" value="00" min="0" max="59"></input>
-                        </label>
-                    </div>
-                    <div id="maxTime">Schedule up to 9:59.</div>
+                <div id = "timeInput">
+                    <label for="timeOfBlockHours">
+                        <span class="label lbl-hrs">hours</span>
+                        <input type="number" id="timeOfBlockHours" class = "time" value="00" min="0" max="23"></input>
+                    </label>
+                    <span>:</span>
+                    <label for="timeOfBlockMins">
+                        <span class="label lbl-mins">minutes</span>
+                        <input type="number" id="timeOfBlockMins" class = "time" value="00" min="0" max="59"></input>
+                    </label>
                 </div>
-
+               
                 <button id="addTask"><i id = "addTaskIcon" class='material-symbols-outlined'>add_task</i></button>
 
                 <div id="instructions">Add up to three tasks. Drag tasks to order.</div>

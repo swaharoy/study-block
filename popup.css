@@ -98,16 +98,6 @@ body {
     gap: 10px;
   }
 
-  .timeInputContainer{
-    position: relative;
-    top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 4px;
-  }
-
   #timeInput, .timeTaskInput{
     width: fit-content;
     color: black;
@@ -154,10 +144,6 @@ body {
     outline: 2px solid var(--outline);
   }
 
-  #timeInput input:invalid, .timeTaskInput input:invalid{
-    outline: 3px solid rgb(255, 0, 0);
-  }
-
   #timeInput label, .timeTaskInput label{
     display: flex;
     flex-direction: column;
@@ -179,10 +165,6 @@ body {
   #addTask{
     background: none;
     border: none;
-  }
-
-  #maxTime{
-    font-size: 12px;
   }
 
   #instructions{
