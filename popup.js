@@ -4,6 +4,7 @@
 //TODO: fix progress bar
 //TODO: change wording of schedule up to 9:59
 //TODO: time of block set must be greater than 0
+//TODO: add padding of zeroes
 
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
@@ -109,30 +110,19 @@ function setTime(timeInputHours, timeInputMins, elemId){
   switch(elemId){
     case 'timeOfBlock':
       gtimeOfBlock = time;
-      inTimeOfBlock(time, gtask1time, gtask2time, gtask3time, 0)
-      // if(!initialTimeOfBlockSet){
-      //   gtimeOfBlock = time;
-      //   initialTimeOfBlockSet = true;}
-      // else{
-      //   gtimeOfBlock = 0
-      //   inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
-      //   gtimeOfBlock = time
-      // }
+      inTimeOfBlock(time, gtask1time, gtask2time, gtask3time, elemId)
       break;
     case 'task1time':
-      gtask1time = 0
-      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
       gtask1time = time
+      inTimeOfBlock(gtimeOfBlock, time, gtask2time, gtask3time, elemId)
       break;
     case 'task2time':
-      gtask2time = 0
-      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
       gtask2time = time
+      inTimeOfBlock(gtimeOfBlock, gtask1time, time, gtask3time, elemId)
       break;
     case 'task3time':
-      gtask3time = 0
-      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
       gtask3time = time
+      inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, time, elemId)
       break;
   }
 
@@ -177,7 +167,7 @@ function addTask(){
 
       <input id="task${totalTasks}descrip" class="taskDescrip" placeholder="Describe task."></input>        
 
-      <div class = "timeTaskInput">
+      <div id="timeInput${totalTasks}" class = "timeTaskInput">
           <label for="timeOfBlockHours">
             <span class="label lbl-hrs">hrs</span>
             <input type="number" id="task${totalTasks}timeHours" class = "time timeTask" value="0" min="0" max="9"></input>
@@ -192,6 +182,9 @@ function addTask(){
   } else{
     document.getElementById("taskList").appendChild(removedTasks.pop())
   }
+
+  switchAddTask()
+  
 }
 
 let removedTasks = []
@@ -208,7 +201,20 @@ function deleteTask(e) {
   const node = document.getElementById("taskList").removeChild(deleteTask)
   removedTasks.push(node)
   console.log(removedTasks)
+
+  switchAddTask()
 }
+
+function switchAddTask() {
+  if(totalTasks >= 3 && !removedTasks.length){
+    document.getElementById('addTaskIcon').classList.add('disable');
+    document.getElementById('addTask').classList.add('disable');
+  } else {
+    document.getElementById('addTaskIcon').classList.remove('disable');
+    document.getElementById('addTask').classList.remove('disable');
+  }
+}
+
 
 const taskList = document.getElementById('taskList')
 taskList.addEventListener('dragover', e => {
@@ -240,13 +246,23 @@ function reorderList(taskList, y){
 }
 
 //Math: input time for tasks
-function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, timeOfTaskRequested = 0){
-  if ((timeOfTask1 + timeOfTask2 + timeOfTask3 + timeOfTaskRequested) <= timeOfBlock){
-    console.log("in bound")
-    return true
+function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemId){
+  
+  let taskNum = elemId.charAt(4)
+  if (elemId === "timeOfBlock"){ taskNum = ""}
+
+  if ((timeOfTask1 + timeOfTask2 + timeOfTask3) <= timeOfBlock){
+    
+    let timeErrors = [...document.getElementsByClassName("timeError")]
+    timeErrors.forEach((timeInput) => {
+      timeInput.classList.remove('timeError')
+    })    
+
+    //console.log("in bound")
   } else {
-    console.log("out of bound")
-    return false
+    //console.log("out of bound")
+    
+    document.getElementById(`timeInput${taskNum}`).classList.add('timeError');
   }
   }
      
@@ -255,6 +271,7 @@ function timeScheduled(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask
   const timeRemaining = timeOfBlock - timeScheduled
   return document.getElementById('timeScheduled').innerHTML = `${timeScheduled} scheduled. ${timeRemaining} remaining.`
 }
+
 
 // //DEV: debug 
 //  document.getElementById("timeVariables").addEventListener("click", () => {

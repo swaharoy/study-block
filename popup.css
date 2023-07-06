@@ -33,6 +33,7 @@ body {
 .material-symbols-outlined{
   color: black;
   pointer-events: none; 
+  user-select: none;
 }
 
 .tab {
@@ -245,4 +246,13 @@ body {
     background-color: var(--tertiary_accent);
     margin-top: 5px;
     /* TODO: fix to bottom */
+  }
+
+  .disable{
+    color: grey;
+    pointer-events: none;
+  }
+
+  .timeError{
+    outline: 3px solid rgb(255, 0, 0);
   }
