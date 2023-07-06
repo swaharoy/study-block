@@ -27,10 +27,12 @@ document.addEventListener('focusout',(e) => {
 })
 
 document.addEventListener('click',(e) => {
-
   if(e.target.matches("#addTask")){
     addTask()
   }
+
+  if (e.target.matches(".deleteTask")){
+    deleteTask(e)}
 })
 
 document.addEventListener('keyup',(e) => {
@@ -106,14 +108,16 @@ function setTime(timeInputHours, timeInputMins, elemId){
 
   switch(elemId){
     case 'timeOfBlock':
-      if(!initialTimeOfBlockSet){
-        gtimeOfBlock = time;
-        initialTimeOfBlockSet = true;}
-      else{
-        gtimeOfBlock = 0
-        inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
-        gtimeOfBlock = time
-      }
+      gtimeOfBlock = time;
+      inTimeOfBlock(time, gtask1time, gtask2time, gtask3time, 0)
+      // if(!initialTimeOfBlockSet){
+      //   gtimeOfBlock = time;
+      //   initialTimeOfBlockSet = true;}
+      // else{
+      //   gtimeOfBlock = 0
+      //   inTimeOfBlock(gtimeOfBlock, gtask1time, gtask2time, gtask3time, time)
+      //   gtimeOfBlock = time
+      // }
       break;
     case 'task1time':
       gtask1time = 0
@@ -156,11 +160,9 @@ function setTaskTime(e){
 let totalTasks = 0;
 let initialTimeOfBlockSet = false;
 function addTask(){
-  if(!initialTimeOfBlockSet){
-    alert('Must set time of block first')
-  } else if (totalTasks >= 3) {
+  if ((totalTasks >= 3) && !removedTasks.length) {
     alert('You cannot add more than three tasks')
-  } else {
+  } else if (totalTasks < 3) {
     totalTasks += 1;
 
     const newTask = document.createElement('div')
@@ -187,7 +189,25 @@ function addTask(){
           </label>
       </div>
       `
+  } else{
+    document.getElementById("taskList").appendChild(removedTasks.pop())
   }
+}
+
+let removedTasks = []
+function deleteTask(e) {
+  const taskNum = e.target.id.charAt(4)
+
+  //Clear task
+  document.getElementById(`task${taskNum}descrip`).value = ""
+  document.getElementById(`task${taskNum}timeHours`).value = "0" 
+  document.getElementById(`task${taskNum}timeMins`).value = "00"
+  setTaskTime(e)
+
+  const deleteTask = document.getElementById(`task${taskNum}`)
+  const node = document.getElementById("taskList").removeChild(deleteTask)
+  removedTasks.push(node)
+  console.log(removedTasks)
 }
 
 const taskList = document.getElementById('taskList')
