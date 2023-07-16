@@ -13,6 +13,13 @@
   --yellow_accent: #ffc94b;
 }
 
+/* themes */
+.blue{
+  --task1Color: rgb(9, 9, 230);
+  --task2Color: rgb(85, 85, 234);
+  --task3Color: rgb(190, 190, 238);
+}
+
 body {
     width: 450px;
     height: 600px;
@@ -73,6 +80,57 @@ body {
     padding: 6px 12px;
   }
 
+  .themeSelector{
+    position: absolute;
+    right: 30px;
+    top: 6px;
+    height: 30px;
+    width: 65px;
+    background: pink;
+    border-radius: 15px;
+    padding: 1.5px;
+
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+  }
+
+  .arrow{
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+
+  #options{
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0px;
+    border-radius: 15px;
+    padding: 1.5px;
+  }
+
+  .themeSelector:hover #options, #options:hover{
+    display: flex;
+    align-items: flex-end;
+    
+  }
+
+  .themeOption{
+    appearance: none;
+    border: 2px solid black;
+    border-radius: 100%;
+    width: 19px;
+    height: 19px;
+  }
+
+  .themeOption:checked{
+    background: pink;
+  }
+
+
   h3 {
     font-weight: 700;
     font-size: 35px;
@@ -98,7 +156,7 @@ body {
     gap: 10px;
   }
 
-  #timeInput, .timeTaskInput{
+  .timeInput, .timeTaskInput{
     width: fit-content;
     color: black;
     display: flex;
@@ -106,15 +164,15 @@ body {
     border-radius: 8px;
   }
 
-  #timeInput{
-    border: 2px solid var(--yellow_accent);
+  .timeInput{
+    border: 3px solid var(--yellow_accent);
   }
 
   .timeTaskInput{
     border: 2px solid var(--blue_accent);
   }
 
-  #timeInput input, .timeTaskInput input{
+  .timeInput input, .timeTaskInput input{
     border: none;
     box-sizing: border-box;
     padding: auto 15px;
@@ -124,7 +182,7 @@ body {
     border-radius: 8px;
   }
 
-  #timeInput input{
+  .timeInput input{
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
@@ -136,15 +194,15 @@ body {
     font-size: 1.25rem;
   }
 
-  #timeInput input:focus{
-    outline: 3px solid var(--outline);
+  .timeInput input:focus{
+    outline: 4px solid var(--outline);
   }
 
   .timeTaskInput input:focus{
-    outline: 2px solid var(--outline);
+    outline: 3px solid var(--outline);
   }
 
-  #timeInput label, .timeTaskInput label{
+  .timeInput label, .timeTaskInput label{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,6 +224,45 @@ body {
     background: none;
     border: none;
   }
+
+
+  .tooltip::before{
+   content: "";
+   width: 0;
+   height: 0;
+   border: 5px solid transparent;
+   border-top-width: 0;
+   border-bottom-color: rgba(0,0,0, 0.7);
+   display: none;
+   position: absolute;
+   transform: translateX(75%);
+   margin-top: 23px
+  }
+
+  .tooltip::after{
+    display: none;
+    position: absolute;
+    content: attr(data-tooltip);
+    color: var(--tab-background);
+    background: rgba(0,0,0, 0.7);
+    z-index: 100;
+    transform: translateX(-40%);
+    padding: 5px;
+    border-radius: 4px;
+    margin-top:0px;
+    border: none;
+  }
+
+  .tooltip.disable:hover:before,
+  .tooltip.disable:hover:after{
+    display: block
+  }
+
+  
+  .disable{
+    color: grey;
+  }
+
 
   #instructions{
     background-color: var(--yellow_accent);
@@ -204,6 +301,7 @@ body {
     border: none;
     border-bottom: 2px solid var(--outline);
     outline: none;
+    font-size: 1.25rem;
   }
 
   .taskDescrip:focus {
@@ -223,18 +321,45 @@ body {
     height: 100%
   }
 
-
   #schedulingContainer{
     background-color: var(--tertiary_accent);
     margin-top: 5px;
     /* TODO: fix to bottom */
   }
-
-  .disable{
-    color: grey;
-    pointer-events: none;
+  
+  #progressBar1{
+    background-color: #595E4E;
+    overflow: hidden;
+    outline: 2px solid blue;
+    outline-offset: 2px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
+  .taskFraction{
+    height: 50px;
+  }
+
+  [data-tasknum ="1"]{
+    background-color: var(--task1Color); 
+  }
+
+  [data-tasknum ="2"]{
+    background-color: var(--task2Color);
+
+  }
+
+  [data-tasknum ="3"]{
+    background-color: var(--task3Color);
+  }
+  
   .timeError{
-    outline: 3px solid rgb(255, 0, 0);
+    border: 2px solid rgb(255, 0, 0);
   }
+ 
+  #timeInputB.timeError{
+    border: 3px solid rgb(255, 0, 0);
+  }
+
+  

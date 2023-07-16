@@ -1,3 +1,6 @@
+<!-- TODO: extra tab for colore theme (bonus feature) -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +24,22 @@
         <button class="tablinks" id="Tab3"><i class='material-symbols-outlined'>block</i></button>
     </div>
   
+    <div class = "themeSelector"> 
+        <div id="displayTheme">
+        </div>
+
+        <div class= "arrow"> </div>
+
+        <div id="options">
+            <input name="theme" type="radio" class="themeOption" id="green" checked>
+            <input name="theme" type="radio" class="themeOption" id="blue">
+            <input name="theme" type="radio" class="themeOption" id="pink">
+            <input name="theme" type="radio" class="themeOption" id="purple">
+
+        </div>
+
+    </div>
+
     <div id = main-background>    
         <!-- Tab content -->
         <div id="timer" class="tabcontent">
@@ -37,7 +56,7 @@
             <div id="timeOfBlockContainter">
                 <div>Set length of study session:</div>
                 
-                <div id = "timeInput">
+                <div id="timeInputB" class = "timeInput">
                     <label for="timeOfBlockHours">
                         <span class="label lbl-hrs">hours</span>
                         <input type="number" id="timeOfBlockHours" class = "time" value="00" min="0" max="23"></input>
@@ -49,7 +68,8 @@
                     </label>
                 </div>
                
-                <button id="addTask"><i id = "addTaskIcon" class='material-symbols-outlined'>add_task</i></button>
+                <button id="addTask" class = "disable tooltip" data-tooltip = "Set total time."><i id = "addTaskIcon" class='material-symbols-outlined disable'>add_task</i></button>
+                
 
                 <div id="instructions">Add up to three tasks. Drag tasks to order.</div>
             </div>
@@ -59,6 +79,12 @@
             <div id="schedulingContainer">
                 <div id="progressBar"></div>
                 <div id="timeScheduled"></div>
+            </div>
+
+            <div id="progressBar1">
+                <div class="taskFraction blue" data-progpos = "1" data-tasknum ="1"></div>
+                <div class="taskFraction blue" data-progpos = "2" data-tasknum ="2"></div>
+                <div class="taskFraction blue" data-progpos = "3" data-tasknum ="3"></div>
             </div>
 
         </div>
