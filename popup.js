@@ -2,7 +2,7 @@
 //TODO: something to emphasize that you can drag and drop + gradients
 //TODO: implement progress bar
 //TODO: restrict length of text in input
-
+//TODO: first time entering time, takes double click to exit focus
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
   if (e.target.matches(".draggable")){
@@ -155,10 +155,9 @@ function setTime(timeInputHours, timeInputMins, elemId){
       break;
   }
 
+  
   timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-  schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-  document.getElementById('progressBar').innerHTML = 'Progress Bar Placehold'
-
+  if(!noTotal){schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)}
 }
 function setTotalTime(){
   const timeOfBlockInputHours = document.getElementById("timeOfBlockHours").value;
@@ -188,7 +187,7 @@ function addTask(){
 
     const newTask = document.createElement('div')
     newTask.setAttribute('id',`task${totalTasks}`)
-    newTask.setAttribute('class', 'draggable blue')
+    newTask.setAttribute('class', 'draggable')
     newTask.setAttribute('draggable', 'true')
     newTask.setAttribute('data-taskpos', `${totalTasks}`)
     newTask.setAttribute('data-tasknum', `${totalTasks}`)
@@ -345,7 +344,7 @@ function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemI
 function timeScheduled(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask3 = 0){
   const timeScheduled = timeOfTask1 + timeOfTask2 + timeOfTask3
   const timeRemaining = timeOfBlock - timeScheduled
-  document.getElementById('timeScheduled').innerHTML = `${timeScheduled} scheduled. ${timeRemaining} remaining.`
+  document.getElementById('timeScheduled').innerHTML = `${timeScheduled} mins scheduled. ${timeRemaining} mins remaining.`
 }
 function schedulingWidths(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask3 = 0){
   let task1width = `${timeOfTask1/timeOfBlock}fr`;
@@ -402,8 +401,8 @@ function schedulingWidths(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfT
         }
         break;  
   }})
-  //TODO: update pos datatset with draggable (learn reduce function)
-  document.getElementById("progressBar1").style.gridTemplateColumns = `${pos1width} ${pos2width} ${pos3width}`;
+  
+  document.getElementById("progressBar").style.gridTemplateColumns = `${pos1width} ${pos2width} ${pos3width}`;
 }
 
 //Theme Picker

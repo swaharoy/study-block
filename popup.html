@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="popup.css">
     <script src="popup.js" defer></script>
 </head>
-<body>
+<body class ="pink">
     
    
     <!-- Tab links -->
@@ -77,14 +77,12 @@
             <div id="taskList"></div>
 
             <div id="schedulingContainer">
-                <div id="progressBar"></div>
-                <div id="timeScheduled"></div>
-            </div>
-
-            <div id="progressBar1">
-                <div class="taskFraction blue" data-progpos = "1" data-tasknum ="1"></div>
-                <div class="taskFraction blue" data-progpos = "2" data-tasknum ="2"></div>
-                <div class="taskFraction blue" data-progpos = "3" data-tasknum ="3"></div>
+                <div id="progressBar">
+                    <div class="taskFraction" data-progpos = "1" data-tasknum ="1"></div>
+                    <div class="taskFraction" data-progpos = "2" data-tasknum ="2"></div>
+                    <div class="taskFraction" data-progpos = "3" data-tasknum ="3"></div>
+                </div>
+                <div id="timeScheduled">No time scheduled.</div>
             </div>
 
         </div>

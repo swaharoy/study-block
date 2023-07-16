@@ -1,31 +1,90 @@
-/* TODO: stop scroll */
-:root{
-  --background:#595E4E;
-  --tab-background: #FDFDFB;
-
-  --outline: #DED4C9;
-  --outline_select: #BCB2A2;
-
-  --main_accent: #FEB001;
-  --secondary_accent: #72ABA3;
-  --blue_accent:#94d7ce;
-  --tertiary_accent: #899A56;
-  --yellow_accent: #ffc94b;
-}
-
 /* themes */
-.blue{
-  --task1Color: rgb(9, 9, 230);
-  --task2Color: rgb(85, 85, 234);
-  --task3Color: rgb(190, 190, 238);
+.green{
+  --text_color: black;
+  --tooltip_background: rgba(0,0,0,0.8);
+  --tooltip_textcolor: white;
+  
+  --background:#2C4430;
+  --tab-background: #A2C1AE;
+
+  --outline: #F2F8F4;
+  --outline_select: #D8EBE0;
+
+  --main_accent: #4B634C;
+  --main_accent_light: #92A65F;
+
+  
+  --task1Color: #4E5A49;
+  --task2Color: #62705C;
+  --task3Color: #76876E;
 }
+
+.blue{
+  --text_color: white;
+  --tooltip_background: rgba(255,255,255,0.8);
+  --tooltip_textcolor: black;
+
+  --background:#1C1D2F;
+  --tab-background: #2D3450;
+
+  --outline: #C6C9CA;
+  --outline_select: #B5B9BA;
+
+  --main_accent: #324564;
+  --main_accent_light: #48658D;
+
+  --task1Color: #4E7FBC;
+  --task2Color: #5F8CC3;
+  --task3Color: #829DBC;
+}
+
+.pink{
+  --text_color: black;
+  --tooltip_background: rgba(0,0,0,0.8);
+  --tooltip_textcolor: white;
+  
+  --background:#B86879;
+  --tab-background: #CA8796;
+
+  --outline: #F9F3F1;
+  --outline_select: #EBE4E3;
+
+  --main_accent: #D39CA9;
+  --main_accent_light: #E59EAD;
+
+
+  --task1Color: #EFC3CC;
+  --task2Color: #DCABB6;
+  --task3Color: #F8D9DE;
+}
+
+.purple{
+  --text_color: white;
+  --tooltip_background: rgba(255,255,255,0.8);
+  --tooltip_textcolor: black;
+
+  --background:#270041;
+  --tab-background: #30004F;
+
+  --outline: #DEB7FF;
+  --outline_select: #A991AD;
+
+  --main_accent: #764599;
+  --main_accent_light: #A668DB;
+
+  --task1Color: #745592;
+  --task2Color: #8F72AC;
+  --task3Color: #A38BBB;
+}
+
 
 body {
     width: 450px;
-    height: 600px;
+    height: 575px;
     font-family: 'Space Grotesk', sans-serif;
     background-color: var(--background);
     padding: 0px;
+    color: var(--text_color)
   }
 
 #main-background{
@@ -37,12 +96,20 @@ body {
   border: solid medium var(--outline_select);
 }
 
+label, input::placeholder{
+  color: var(--outline);
+}
+
+
 .material-symbols-outlined{
   color: black;
   pointer-events: none; 
   user-select: none;
 }
 
+.tablinks .material-symbols-outlined{
+  color: var(--text_color);
+}
 .tab {
     display: flex;
     justify-content: center;
@@ -165,11 +232,11 @@ body {
   }
 
   .timeInput{
-    border: 3px solid var(--yellow_accent);
+    border: 3px solid var(--main_accent_light);
   }
 
   .timeTaskInput{
-    border: 2px solid var(--blue_accent);
+    border: 2px solid var(--main_accent_light);
   }
 
   .timeInput input, .timeTaskInput input{
@@ -216,10 +283,6 @@ body {
     background: var(--main_accent)
   }
 
-  .timeTaskInput .label{
-    background: var(--secondary_accent)
-  }
-
   #addTask{
     background: none;
     border: none;
@@ -232,7 +295,7 @@ body {
    height: 0;
    border: 5px solid transparent;
    border-top-width: 0;
-   border-bottom-color: rgba(0,0,0, 0.7);
+   border-bottom-color: var(--tooltip_background);
    display: none;
    position: absolute;
    transform: translateX(75%);
@@ -243,8 +306,7 @@ body {
     display: none;
     position: absolute;
     content: attr(data-tooltip);
-    color: var(--tab-background);
-    background: rgba(0,0,0, 0.7);
+    background: var(--tooltip_background);
     z-index: 100;
     transform: translateX(-40%);
     padding: 5px;
@@ -258,14 +320,17 @@ body {
     display: block
   }
 
-  
+  /* TODO: ERROR  */
   .disable{
-    color: grey;
+    color: var(--tooltip_textcolor);
+  }
+  
+  .disable #addTaskIcon{
+    color: rgb(121, 120, 120);
   }
 
-
   #instructions{
-    background-color: var(--yellow_accent);
+    background-color: var(--main_accent_light);
     font-weight: 400;
     font-size: 13px;
     padding: 3px;
@@ -274,16 +339,15 @@ body {
   #taskList{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 25px;
   }
 
   .draggable{
     cursor: move;
-    background-color: var(--secondary_accent);
     
     border-radius: 10px;
-    margin-bottom: 10px;
-    padding: 7px 8px 8px 3px;
+    margin-bottom: 15px;
+    padding: 10px 8px 8px 3px;
 
     display: grid;
     grid-template-columns: 1fr 5fr 2fr;
@@ -293,7 +357,6 @@ body {
 
   .dragging {
     opacity: 0.5;
-    background-color: var(--secondary_accent)
   }
 
   .taskDescrip{
@@ -302,6 +365,7 @@ body {
     border-bottom: 2px solid var(--outline);
     outline: none;
     font-size: 1.25rem;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   .taskDescrip:focus {
@@ -309,7 +373,6 @@ body {
     transition: 0.3s;
   }
 
-  
   .deleteTask{
     background: none;
     border: none;
@@ -321,36 +384,16 @@ body {
     height: 100%
   }
 
-  #schedulingContainer{
-    background-color: var(--tertiary_accent);
-    margin-top: 5px;
-    /* TODO: fix to bottom */
-  }
-  
-  #progressBar1{
-    background-color: #595E4E;
-    overflow: hidden;
-    outline: 2px solid blue;
-    outline-offset: 2px;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .taskFraction{
-    height: 50px;
-  }
-
-  [data-tasknum ="1"]{
+  [data-tasknum ="1"], #timeInput1 .label{
     background-color: var(--task1Color); 
   }
 
-  [data-tasknum ="2"]{
+  [data-tasknum ="2"], #timeInput2 .label{
     background-color: var(--task2Color);
 
   }
 
-  [data-tasknum ="3"]{
+  [data-tasknum ="3"], #timeInput3 .label{
     background-color: var(--task3Color);
   }
   
@@ -361,5 +404,47 @@ body {
   #timeInputB.timeError{
     border: 3px solid rgb(255, 0, 0);
   }
+
+  .draggable, #timeOfBlockContainter{
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .draggable:hover{
+   /* transform: translateY(-5px); */
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* scheduling bar */
+  #schedulingContainer{
+    margin-top: 5px;
+    position: absolute;
+    bottom: 25px;
+    width: 405px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    }
+
+  #progressBar{
+    background-color: var(--main_accent);
+    overflow: hidden;
+    outline: 2px solid var(--outline_select);
+    outline-offset: 2px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 0fr 0fr 0fr;
+  }
+
+  #timeScheduled{
+    align-self: flex-end;
+    font-size: 14px;
+  }
+
+  .taskFraction{
+    height: 50px;
+  }
+
+  
 
   
