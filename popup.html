@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="popup.css">
     <script src="popup.js" defer></script>
 </head>
-<body class ="pink">
+<body class ="blue">
     
    
     <!-- Tab links -->
@@ -25,19 +25,16 @@
     </div>
   
     <div class = "themeSelector"> 
-        <div id="displayTheme">
+        <div id="themeButton">
+            <div id="displayTheme"></div>
+            <div class= "arrow"> </div>
         </div>
-
-        <div class= "arrow"> </div>
-
         <div id="options">
-            <input name="theme" type="radio" class="themeOption" id="green" checked>
-            <input name="theme" type="radio" class="themeOption" id="blue">
-            <input name="theme" type="radio" class="themeOption" id="pink">
-            <input name="theme" type="radio" class="themeOption" id="purple">
-
+            <input name="theme" type="radio" class="themeOption blue" value="blue" checked>
+            <input name="theme" type="radio" class="themeOption green" value="green">
+            <input name="theme" type="radio" class="themeOption pink" value="pink">
+            <input name="theme" type="radio" class="themeOption purple" value="purple">
         </div>
-
     </div>
 
     <div id = main-background>    

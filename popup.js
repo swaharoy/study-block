@@ -32,16 +32,16 @@ document.addEventListener('focusout',(e) => {
   }
 })
 document.addEventListener('click',(e) => {
+  if(e.target.matches("#themeButton")){
+    toggleDropdown()
+  }
+
   if(e.target.matches("#addTask")){
     addTask()
   }
 
   if (e.target.matches(".deleteTask")){
     deleteTask(e)}
-
-  if (e.target.matches(".themeOption")){
-    selectTheme(e)
-  }
 })
 document.addEventListener('keyup',(e) => {
   if (e.target.matches(".time")){
@@ -306,13 +306,14 @@ function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemI
     timeErrors.forEach((timeInput) => {
       timeInput.classList.remove('timeError')
     })    
+    document.getElementById('progressBar').classList.remove('timeError');
 
     console.log("in bound")
   } else {
     console.log(`out of bound: timeInput${taskNum}`)
     console.log("hey:" +  document.getElementById(`timeInput${taskNum}`).classList)
     document.getElementById(`timeInput${taskNum}`).classList.add('timeError');
-    
+    document.getElementById('progressBar').classList.add('timeError');
     if(taskNum === "B"){
       let timeTasks = [...document.getElementsByClassName('timeTask')]
     
@@ -344,7 +345,11 @@ function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemI
 function timeScheduled(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask3 = 0){
   const timeScheduled = timeOfTask1 + timeOfTask2 + timeOfTask3
   const timeRemaining = timeOfBlock - timeScheduled
-  document.getElementById('timeScheduled').innerHTML = `${timeScheduled} mins scheduled. ${timeRemaining} mins remaining.`
+  if (document.getElementById('progressBar').className){
+    document.getElementById('timeScheduled').innerHTML = 'Fix time scheduled.'
+  } else{
+    document.getElementById('timeScheduled').innerHTML = `${timeScheduled} mins scheduled. ${timeRemaining} mins remaining.`
+  }
 }
 function schedulingWidths(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfTask3 = 0){
   let task1width = `${timeOfTask1/timeOfBlock}fr`;
@@ -406,8 +411,25 @@ function schedulingWidths(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfT
 }
 
 //Theme Picker
-function selectTheme(e){
-  selectedThemeId = e.target.id
+document.getElementById('options').addEventListener('click', () => {
+  const radioButtons = document.querySelectorAll('input[name="theme"]')
+  for (const radioButton of radioButtons) {
+    if (radioButton.checked) {
+        selectedTheme = radioButton.value;
+        break;
+    }
+  }
+  document.body.className = ''
+  document.body.className = selectedTheme
+})
+function toggleDropdown(){
+  if(!document.getElementById('options').className){
+    document.getElementById('options').classList.add('show')
+    document.getElementById('themeButton').style.borderRadius = "15px 15px 0px 0px"
+  } else{
+    document.getElementById('options').classList.remove('show')
+    document.getElementById('themeButton').style.borderRadius = "15px 15px 15px 15px"
+  }
 }
 
 // //DEV: debug 

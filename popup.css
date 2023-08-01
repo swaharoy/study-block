@@ -1,3 +1,6 @@
+/* TODO: add hover darkness on all clickable elements*/
+/* TODO: text shrinks, restricts length of task descrip */
+
 /* themes */
 .green{
   --text_color: black;
@@ -96,10 +99,77 @@ body {
   border: solid medium var(--outline_select);
 }
 
+.themeSelector{
+  position: absolute;
+  right: 30px;
+  top: 8px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: -1px;
+}
+
+#themeButton{
+  border-radius: 15px 15px 15px 15px;
+  background-image: linear-gradient(to right, var(--task1Color), var(--task2Color), var(--task3Color));
+  height: 30px;
+  width: 65px;
+
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  align-items: center;
+}
+
+#options{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.25s linear;
+  background-color: palevioletred;
+  background-image: linear-gradient(to right, var(--task1Color), var(--task2Color), var(--task3Color));
+  border-radius: 15px 0px 15px 15px;
+  padding: 3px;
+}
+
+#options.show{
+  visibility: visible;
+  opacity: 1;
+}
+
+#displayTheme{
+  pointer-events: none; 
+  border: 2px solid var(--main_accent_light);
+  border-radius: 100%;
+  width: 19px;
+  height: 19px;
+  background-image: radial-gradient(circle at center, var(--background) 0, var(--tab-background) 100%);
+}
+
+.arrow{
+  pointer-events: none;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+.themeOption{
+  appearance: none;
+  border: 2px solid var(--main_accent_light);
+  border-radius: 100%;
+  width: 19px;
+  height: 19px;
+}
+
+.themeOption:checked, .themeOption:hover{
+  background-image: radial-gradient(circle at center, var(--background) 0, var(--tab-background) 100%);
+}
+
 label, input::placeholder{
   color: var(--outline);
 }
-
 
 .material-symbols-outlined{
   color: black;
@@ -146,57 +216,6 @@ label, input::placeholder{
     display: none;
     padding: 6px 12px;
   }
-
-  .themeSelector{
-    position: absolute;
-    right: 30px;
-    top: 6px;
-    height: 30px;
-    width: 65px;
-    background: pink;
-    border-radius: 15px;
-    padding: 1.5px;
-
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-  }
-
-  .arrow{
-    border-bottom: 2px solid #000;
-    border-right: 2px solid #000;
-    width: 10px;
-    height: 10px;
-    transform: rotate(45deg);
-  }
-
-  #options{
-    display: none;
-    position: absolute;
-    top: 35px;
-    right: 0px;
-    border-radius: 15px;
-    padding: 1.5px;
-  }
-
-  .themeSelector:hover #options, #options:hover{
-    display: flex;
-    align-items: flex-end;
-    
-  }
-
-  .themeOption{
-    appearance: none;
-    border: 2px solid black;
-    border-radius: 100%;
-    width: 19px;
-    height: 19px;
-  }
-
-  .themeOption:checked{
-    background: pink;
-  }
-
 
   h3 {
     font-weight: 700;
@@ -355,6 +374,15 @@ label, input::placeholder{
     gap: 10px;
   }
 
+  .draggable, #timeOfBlockContainter{
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .draggable:hover{
+   /* transform: translateY(-5px); */
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+  }
+
   .dragging {
     opacity: 0.5;
   }
@@ -400,21 +428,17 @@ label, input::placeholder{
   .timeError{
     border: 2px solid rgb(255, 0, 0);
   }
+
+  #progressBar.timeError{
+    outline: 2px solid rgb(255, 0, 0);
+    border: none;
+
+  }
  
   #timeInputB.timeError{
     border: 3px solid rgb(255, 0, 0);
   }
-
-  .draggable, #timeOfBlockContainter{
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-  }
-
-  .draggable:hover{
-   /* transform: translateY(-5px); */
-    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
-  }
   
-  /* scheduling bar */
   #schedulingContainer{
     margin-top: 5px;
     position: absolute;
