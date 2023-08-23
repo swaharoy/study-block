@@ -32,6 +32,10 @@ document.addEventListener('focusout',(e) => {
   }
 })
 document.addEventListener('click',(e) => {
+  if(e.target.matches("#createButton")){
+    openTab("tasks")
+  }
+
   if(e.target.matches("#themeButton")){
     toggleDropdown()
   }
@@ -178,6 +182,7 @@ function setTaskTime(e){
 
 //Adding + Deleting Tasks
 let totalTasks = 0;
+let liveTasks = 0
 function addTask(){
   addTaskListener = true;
   if ((totalTasks >= 3) && !removedTasks.length) {
@@ -186,6 +191,7 @@ function addTask(){
     document.getElementById("addTask").dataset.tooltip = "Set total time."
   }else if (totalTasks < 3) {
     totalTasks += 1;
+    liveTasks +=1;
 
     const newTask = document.createElement('div')
     newTask.setAttribute('id',`task${totalTasks}`)
@@ -213,8 +219,17 @@ function addTask(){
           </label>
       </div>
       `
+
+    taskBoxes(liveTasks)
+    fillTaskBoxes(liveTasks)
   } else{
+    liveTasks +=1;
+
     document.getElementById("taskList").appendChild(removedTasks.pop())
+
+    taskBoxes(liveTasks)
+    updatePos()
+    fillTaskBoxes(liveTasks)
   }
 
   switchAddTask()
@@ -223,6 +238,8 @@ function addTask(){
 let removedTasks = []
 function deleteTask(e) {
   const taskNum = e.target.id.charAt(4)
+  liveTasks -=1;
+  
 
   //Clear task
   document.getElementById(`task${taskNum}descrip`).value = ""
@@ -235,6 +252,9 @@ function deleteTask(e) {
   removedTasks.push(node)
   console.log(removedTasks)
 
+  taskBoxes(liveTasks)
+  updatePos()
+  fillTaskBoxes(liveTasks)
   switchAddTask()
 }
 function switchAddTask() {
@@ -264,6 +284,7 @@ taskList.addEventListener('dragover', e => {
   }
 
   updatePos()
+  fillTaskBoxes(liveTasks)
 })
 function reorderList(y){
   const draggables = [...document.getElementsByClassName("draggable")]
@@ -366,7 +387,6 @@ function schedulingWidths(timeOfBlock, timeOfTask1 = 0, timeOfTask2 = 0, timeOfT
   tasks.forEach((task) => {
     let taskNum = task.id.charAt(4)
     let pos = task.dataset.taskpos
-    console.log(typeof pos)
     switch(taskNum){
       case '1':
         if(pos === '1'){
@@ -423,6 +443,8 @@ document.getElementById('options').addEventListener('click', () => {
   }
   document.body.className = ''
   document.body.className = selectedTheme
+
+  fillTaskBoxes(liveTasks)
 })
 function toggleDropdown(){
   if(!document.getElementById('options').className){
@@ -436,11 +458,17 @@ function toggleDropdown(){
 
 //Timer Page
 
-function taskBoxes(taskNum){
-  switch(taskNum){
+//Toggles number of svg task boxes
+function taskBoxes(liveTasks){
+  document.getElementById('taskTimerContainer').classList.add("taskBoxes")
+  switch(liveTasks){
+    case 0:
+      document.getElementById('taskTimerContainer').classList.remove("taskBoxes")
+      document.getElementById('taskTimerContainer').innerHTML = `<button id="createButton">Create Study Block!</button>`
+      break;
     case 1:
       document.getElementById('taskTimerContainer').innerHTML = `
-        <svg height="248" viewBox="0 0 518 248" xmlns="http://www.w3.org/2000/svg">
+        <svg id="taskBox1-1" height="248" viewBox="0 0 518 248" xmlns="http://www.w3.org/2000/svg">
         <path d="M491 2H27C13.1929 2 2 13.1929 2 27V221C2 234.807 13.1929 246 27 246H491C504.807 246 516 234.807 516 221V27C516 13.1929 504.807 2 491 2Z" stroke-width="3"/>
         </svg>`
       break;
@@ -468,10 +496,47 @@ function taskBoxes(taskNum){
   }
 }
 
-taskBoxes(3)
+//TODO: add 
+function fillTaskBoxes(liveTasks){
+  task1 = document.querySelector('[data-taskpos = "1"]')
+  task2 = document.querySelector('[data-taskpos = "2"]')
+  task3 = document.querySelector('[data-taskpos = "3"]')
+  switch(liveTasks){
+    case 1:
+      if (task1 != null){
+        color = getComputedStyle(task1).backgroundColor
+        document.getElementById("taskBox1-1").style.fill = color;
+      }
+      break;
+    case 2:
+      if (task1 != null){
+        color = getComputedStyle(task1).backgroundColor
+        document.getElementById("taskBox1-2").style.fill = color;
+      }
+      if (task2 != null){
+        color = getComputedStyle(task2).backgroundColor
+        document.getElementById("taskBox2-2").style.fill = color;
+      }
+      break;
+    case 3:
+      if (task1 != null){
+        color = getComputedStyle(task1).backgroundColor
+        document.getElementById("taskBox1-3").style.fill = color;
+      }
+      if (task2 != null){
+        color = getComputedStyle(task2).backgroundColor
+        document.getElementById("taskBox2-3").style.fill = color;
+      }
+      if (task3 != null){
+        color = getComputedStyle(task3).backgroundColor
+        document.getElementById("taskBox3-3").style.fill = color;
+      }
+        break;
+  }
 
-
-
+  
+  }
+  
 
 // //DEV: debug 
 //  document.getElementById("timeVariables").addEventListener("click", () => {
