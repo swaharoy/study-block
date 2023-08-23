@@ -476,9 +476,6 @@ svg{
   margin: 0;
 }
 
-#taskBox1-1, #taskBox2-1, #taskBox2-1{
-  
-}
 #taskBox2-2{
 margin-top: -137px;
 }
@@ -497,3 +494,8 @@ margin-top: -125px;
   bottom: 0px;
 }
 
+text{
+  stroke: pink;
+  fill: pink;
+  font-size: 40px;
+}
