@@ -239,7 +239,7 @@ h3 {
     gap: 10px;
   }
 
-  .timeInput, .timeTaskInpu, .timerDisplay{
+  .timeInput, .timeTaskInput, .timerDisplay{
     width: fit-content;
     color: black;
     display: flex;
@@ -303,7 +303,6 @@ h3 {
     background: none;
     border: none;
   }
-
 
   .tooltip::before{
    content: "";
@@ -468,61 +467,6 @@ h3 {
 
 /* Timer Page*/
 
-#timerFlex{
-display: flex;
-flex-direction: column;
-align-items: center;
-height: 520px;
-gap: 15px;
-margin-top: 10px;
-
-/* background-color: #4E5A49; */
-}
-
-#timerContainer{
-background-color: #30004F;
-display: flex;
-
-position: relative;
-}
-
-#timerContainer[data-taskconfig="1"],
-#timerContainer[data-taskconfig="2"]{
-margin-top: 15px;
-height: 250px;
-}
-
-#timerContainer[data-taskconfig="3"]{
-height: 125px;
-}
-
-#taskTimerContainer{
-/* background-color: purple; */
-position: relative;
-}
-
-#taskTimerContainer[data-taskconfig="1"], 
-#taskTimerContainer[data-taskconfig="2"]{ 
-bottom: -15px;
-}
-
-#taskTimerContainer[data-taskconfig="3"]{ 
-bottom: -50px;
-}
-
-#taskBorder{
-width: 100%;
-padding: 5px;
-display: flex;
-flex-direction: column;
-gap: 10px;
-border: 3px solid palevioletred;
-}
-
-#timerButtons button i{
-color: pink;
-}
-
 svg{
   display: block;
   stroke: var(--outline_select);
@@ -531,19 +475,21 @@ svg{
   padding: 0;
   margin: 0;
 }
-
 #taskBox2-2{
 margin-top: -137px;
 }
-
 #taskBox1-3{
 margin-top: -65px;
 }
 #taskBox2-3{
 margin-top: -150px;
 }
-
 #taskBox3-3{
 margin-top: -125px;
+}
+
+#taskTimerContainer{
+  position: absolute;
+  bottom: 0px;
 }
 
