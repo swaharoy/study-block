@@ -188,7 +188,7 @@ label, input::placeholder{
     margin: 15px 10px 3px -8px;
   }
 
-  .tab button {
+.tab button {
     background-color: var(--tab-background);
     float: left;
     border: none;
@@ -199,35 +199,32 @@ label, input::placeholder{
     border: solid medium var(--outline_select);
     border-bottom: none;
     margin: -3px;
-  }
+}
   
-  .tab button:hover {
+.tab button:hover {
     background-color: var(--outline);
-  }
+}
   
-  .tab button.active {
+.tab button.active {
     background-color: var(--outline);
     border: solid medium var(--outline_select);
     border-bottom: none;
     z-index: 100;
-  }
+}
   
-  .tabcontent {
+.tabcontent {
     display: none;
     padding: 6px 12px;
-  }
+}
 
-  h3 {
+h3 {
     font-weight: 700;
     font-size: 35px;
     margin-top: 10px;
     margin-bottom: 8px;
-  }
+}
 
-  #tasks{
-    display: flex;
-    flex-direction: column;
-  }
+
 
   #timeOfBlockContainter{
     background-color: var(--main_accent);
@@ -242,7 +239,7 @@ label, input::placeholder{
     gap: 10px;
   }
 
-  .timeInput, .timeTaskInput{
+  .timeInput, .timeTaskInpu, .timerDisplay{
     width: fit-content;
     color: black;
     display: flex;
@@ -250,7 +247,7 @@ label, input::placeholder{
     border-radius: 8px;
   }
 
-  .timeInput{
+  .timeInput,.timerDisplay{
     border: 3px solid var(--main_accent_light);
   }
 
@@ -258,7 +255,7 @@ label, input::placeholder{
     border: 2px solid var(--main_accent_light);
   }
 
-  .timeInput input, .timeTaskInput input{
+  .timeInput input, .timeTaskInput input, .timerDisplay .timerDisplayTime{
     border: none;
     box-sizing: border-box;
     padding: auto 15px;
@@ -268,7 +265,7 @@ label, input::placeholder{
     border-radius: 8px;
   }
 
-  .timeInput input{
+  .timeInput input, .timerDisplay .timerDisplayTime{
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
@@ -288,7 +285,7 @@ label, input::placeholder{
     outline: 3px solid var(--outline);
   }
 
-  .timeInput label, .timeTaskInput label{
+  .timeInput label, .timeTaskInput label, .timerDisplayLabel{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -302,7 +299,7 @@ label, input::placeholder{
     background: var(--main_accent)
   }
 
-  #addTask{
+  #addTask, #timerButtons button{
     background: none;
     border: none;
   }
@@ -439,36 +436,114 @@ label, input::placeholder{
     border: 3px solid rgb(255, 0, 0);
   }
   
-  #schedulingContainer{
-    margin-top: 5px;
-    position: absolute;
-    bottom: 25px;
-    width: 405px;
+#schedulingContainer{
+  margin-top: 5px;
+  position: absolute;
+  bottom: 25px;
+  width: 405px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    }
-
-  #progressBar{
-    background-color: var(--main_accent);
-    overflow: hidden;
-    outline: 2px solid var(--outline_select);
-    outline-offset: 2px;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 0fr 0fr 0fr;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   }
 
-  #timeScheduled{
-    align-self: flex-end;
-    font-size: 14px;
-  }
+#progressBar{
+  background-color: var(--main_accent);
+  overflow: hidden;
+  outline: 2px solid var(--outline_select);
+  outline-offset: 2px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 0fr 0fr 0fr;
+}
 
-  .taskFraction{
-    height: 50px;
-  }
+#timeScheduled{
+  align-self: flex-end;
+  font-size: 14px;
+}
 
-  
+.taskFraction{
+  height: 50px;
+}
 
-  
+/* Timer Page*/
+
+#timerFlex{
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 520px;
+gap: 15px;
+margin-top: 10px;
+
+/* background-color: #4E5A49; */
+}
+
+#timerContainer{
+background-color: #30004F;
+display: flex;
+
+position: relative;
+}
+
+#timerContainer[data-taskconfig="1"],
+#timerContainer[data-taskconfig="2"]{
+margin-top: 15px;
+height: 250px;
+}
+
+#timerContainer[data-taskconfig="3"]{
+height: 125px;
+}
+
+#taskTimerContainer{
+/* background-color: purple; */
+position: relative;
+}
+
+#taskTimerContainer[data-taskconfig="1"], 
+#taskTimerContainer[data-taskconfig="2"]{ 
+bottom: -15px;
+}
+
+#taskTimerContainer[data-taskconfig="3"]{ 
+bottom: -50px;
+}
+
+#taskBorder{
+width: 100%;
+padding: 5px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+border: 3px solid palevioletred;
+}
+
+#timerButtons button i{
+color: pink;
+}
+
+svg{
+  display: block;
+  stroke: var(--outline_select);
+  fill: none;
+  width: 400px;
+  padding: 0;
+  margin: 0;
+}
+
+#taskBox2-2{
+margin-top: -137px;
+}
+
+#taskBox1-3{
+margin-top: -65px;
+}
+#taskBox2-3{
+margin-top: -150px;
+}
+
+#taskBox3-3{
+margin-top: -125px;
+}
+

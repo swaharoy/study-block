@@ -72,6 +72,8 @@ function openTab(tabID) {
   }
 }
 
+Window.onload = openTab("timer")
+
 let gtimeOfBlock = 0
 let gtask1time = 0
 let gtask2time = 0
