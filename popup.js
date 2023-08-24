@@ -486,6 +486,7 @@ function taskBoxes(liveTasks){
       document.getElementById('taskTimerContainer').innerHTML = `<button id="createButton">Create Study Block!</button>`
       document.getElementById('welcome').classList.add("welcomePage")
       document.getElementById('studyBlock').classList.add("welcomePage")
+      document.getElementById('timerDetails').classList.add("welcomePage")
       break;
     case 1:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -495,6 +496,7 @@ function taskBoxes(liveTasks){
         </svg>`
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
+      document.getElementById('timerDetails').classList.remove("welcomePage")
       break;
     case 2:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -508,6 +510,7 @@ function taskBoxes(liveTasks){
       </svg>`
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
+      document.getElementById('timerDetails').classList.remove("welcomePage")
       break;
     case 3:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -525,6 +528,7 @@ function taskBoxes(liveTasks){
       </svg>`
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
+      document.getElementById('timerDetails').classList.remove("welcomePage")
       break;
   }
 }

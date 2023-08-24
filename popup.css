@@ -465,6 +465,8 @@ h3 {
   display: none;
 }
 
+
+
 #welcome.welcomePage{
   display: block;
   font-weight: 700;
@@ -481,6 +483,9 @@ h3 {
   color: var(--task1Color);
   margin-top: 10px;
   margin-bottom: 8px;
+}
+#timerDetails.welcomePage{
+  display:none;
 }
 
 #createButton{
@@ -511,7 +516,7 @@ h3 {
   align-items: center;
   background-color: var(--outline_select);
   border-radius: 15px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 #timerText{
   font-size: 75px;
@@ -519,6 +524,16 @@ h3 {
 }
 #timerContainer button i{
   font-size: 40px;
+}
+
+#timerDetails{
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+  font-size: 15px;
+  color: var(--outline_select)
 }
 
 svg{
