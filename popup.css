@@ -80,7 +80,6 @@
   --task3Color: #A38BBB;
 }
 
-
 body {
     width: 450px;
     height: 575px;
@@ -223,8 +222,6 @@ h3 {
     margin-top: 10px;
     margin-bottom: 8px;
 }
-
-
 
   #timeOfBlockContainter{
     background-color: var(--main_accent);
@@ -375,7 +372,6 @@ h3 {
   }
 
   .draggable:hover{
-   /* transform: translateY(-5px); */
     box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
   }
 
@@ -466,6 +462,45 @@ h3 {
 }
 
 /* Timer Page*/
+#welcome{
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--task2Color);
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+#studyBlock{
+  font-weight: 700;
+  font-size: 50px;
+  text-decoration:underline;
+  color: var(--task1Color);
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+#createButton{
+  height: 75px;
+  width: 150px;
+  background-color: var(--task3Color);
+  margin-top: 20px;
+
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text_color);
+  
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#createButton:hover{
+  background-color: var(--outline);
+  transform: translateY(-5px);
+  transition: 0.3s;
+  box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+}
 
 svg{
   display: block;
