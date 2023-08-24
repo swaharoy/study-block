@@ -55,6 +55,10 @@ document.addEventListener('keyup',(e) => {
   if (e.target.matches(".time")){
     restrictTimeInput(e, e)
   }
+
+  if (e.target.matches(".taskDescrip")){
+    restrictDescripInput(e, e)
+  }
 })
 
 //Tab Functionality
@@ -125,6 +129,17 @@ function formatTimeInput(e, timeFormatting){
   }
 }
 
+//Task Description UI
+function restrictDescripInput(e, descripValidation){
+  let val = e.target.value
+  let length =val.length
+  let descripValidated = descripValidation.target
+
+  //Restrict num of characters.
+  if(length > 25){
+    descripValidated.value = val.substring(0,25);
+  }
+}
 //Handling value of time input
 noTotal = true;
 function setTime(timeInputHours, timeInputMins, elemId){
@@ -481,7 +496,7 @@ function taskBoxes(liveTasks){
       document.getElementById('taskTimerContainer').innerHTML = `
       <svg id="taskBox1-2" height="204" viewBox="0 0 520 204" xmlns="http://www.w3.org/2000/svg">
         <path d="M2 129.5V27C2 13.1929 13.1929 2 27 2H493.5C507.307 2 518.5 13.1929 518.5 27V95C461.5 60.5 450 114.5 468 135C486 155.5 410 160.5 387 144C364 127.5 292 135 304.5 150C317 165 324 183.5 283.5 190C243.908 196.354 245.887 168.304 253.937 145.556C254.302 144.526 254.484 143.387 254.352 142.303C249.071 98.9001 134.667 134.013 108.5 135C82 136 83 144 96.5 167C110 190 74 217.5 43 190C12 162.5 47.5 159.5 43 144C39.4 131.6 14.1667 129.167 2 129.5Z" stroke-width="3"/>
-        <text id="textBox1-2" x="50%" y="40%">hi</text>
+        <text id="textBox1-2" x="50%" y="37%">hi</text>
       </svg>
       <svg id="taskBox2-2" height="166" viewBox="0 0 520 166" xmlns="http://www.w3.org/2000/svg">
         <path d="M43 62.2452C39.4 49.8452 14.1667 47.4118 2 47.7452V139.5C2 153.307 13.1929 164.5 27 164.5H493.5C507.307 164.5 518.5 153.307 518.5 139.5V13.2452C461.5 -21.2548 450 32.7452 468 53.2452C486 73.7452 410 78.7452 387 62.2452C364 45.7452 292 53.2452 304.5 68.2452C317 83.2452 324 101.745 283.5 108.245C243.908 114.599 245.887 86.5493 253.937 63.8008C254.302 62.7708 254.484 61.6325 254.352 60.548C249.071 17.1453 134.667 52.2577 108.5 53.2452C82 54.2452 83 62.2452 96.5 85.2452C110 108.245 74 135.745 43 108.245C12 80.7452 47.5 77.7452 43 62.2452Z" stroke-width="3"/>
@@ -505,15 +520,11 @@ function taskBoxes(liveTasks){
       break;
   }
 }
-
-
-
 function getDescrip(task){
   const taskNum = task.id.charAt(4)
   taskDescrip = document.getElementById(`task${taskNum}descrip`).value
   return taskDescrip
 }
-//TODO: add description titles
 function fillTaskBoxes(liveTasks){
   task1 = document.querySelector('[data-taskpos = "1"]')
   task2 = document.querySelector('[data-taskpos = "2"]')

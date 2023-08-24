@@ -496,7 +496,7 @@ margin-top: -125px;
 
 text{
   text-anchor: middle;
-  stroke: pink;
-  fill: pink;
-  font-size: 40px;
+  stroke: var(--text_color);
+  fill: var(--text_color);
+  font-size: 30px;
 }
