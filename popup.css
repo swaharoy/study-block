@@ -1,5 +1,4 @@
-/* TODO: add hover darkness on all clickable elements*/
-/* TODO: text shrinks, restricts length of task descrip */
+/* TODO: add hover darkness on all clickable elements + click cursor*/
 
 /* themes */
 .green{
@@ -296,7 +295,7 @@ h3 {
     background: var(--main_accent)
   }
 
-  #addTask, #timerButtons button{
+  #addTask, #timerContainer button{
     background: none;
     border: none;
   }
@@ -462,15 +461,20 @@ h3 {
 }
 
 /* Timer Page*/
-#welcome{
+#welcome,#studyBlock{
+  display: none;
+}
+
+#welcome.welcomePage{
+  display: block;
   font-weight: 700;
   font-size: 40px;
   color: var(--task2Color);
   margin-top: 10px;
   margin-bottom: 8px;
 }
-
-#studyBlock{
+#studyBlock.welcomePage{
+  display: block;
   font-weight: 700;
   font-size: 50px;
   text-decoration:underline;
@@ -494,12 +498,27 @@ h3 {
   border-radius: 15px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
-
 #createButton:hover{
   background-color: var(--outline);
   transform: translateY(-5px);
   transition: 0.3s;
   box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+}
+
+#timerContainer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--outline_select);
+  border-radius: 15px;
+  margin-top: 15px;
+}
+#timerText{
+  font-size: 75px;
+  color: var(--tab-background)
+}
+#timerContainer button i{
+  font-size: 40px;
 }
 
 svg{
@@ -510,7 +529,6 @@ svg{
   padding: 0;
   margin: 0;
 }
-
 #taskBox2-2{
 margin-top: -137px;
 }
@@ -523,12 +541,10 @@ margin-top: -150px;
 #taskBox3-3{
 margin-top: -125px;
 }
-
 #taskTimerContainer.taskBoxes{
   position: absolute;
   bottom: 0px;
 }
-
 text{
   text-anchor: middle;
   stroke: var(--text_color);

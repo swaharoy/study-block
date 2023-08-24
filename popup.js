@@ -484,6 +484,8 @@ function taskBoxes(liveTasks){
     case 0:
       document.getElementById('taskTimerContainer').classList.remove("taskBoxes")
       document.getElementById('taskTimerContainer').innerHTML = `<button id="createButton">Create Study Block!</button>`
+      document.getElementById('welcome').classList.add("welcomePage")
+      document.getElementById('studyBlock').classList.add("welcomePage")
       break;
     case 1:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -491,6 +493,8 @@ function taskBoxes(liveTasks){
           <path d="M491 2H27C13.1929 2 2 13.1929 2 27V221C2 234.807 13.1929 246 27 246H491C504.807 246 516 234.807 516 221V27C516 13.1929 504.807 2 491 2Z" stroke-width="3"/>
           <text id="textBox1-1"  x="50%" y="55%">hi</text>
         </svg>`
+      document.getElementById('welcome').classList.remove("welcomePage")
+      document.getElementById('studyBlock').classList.remove("welcomePage")
       break;
     case 2:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -502,6 +506,8 @@ function taskBoxes(liveTasks){
         <path d="M43 62.2452C39.4 49.8452 14.1667 47.4118 2 47.7452V139.5C2 153.307 13.1929 164.5 27 164.5H493.5C507.307 164.5 518.5 153.307 518.5 139.5V13.2452C461.5 -21.2548 450 32.7452 468 53.2452C486 73.7452 410 78.7452 387 62.2452C364 45.7452 292 53.2452 304.5 68.2452C317 83.2452 324 101.745 283.5 108.245C243.908 114.599 245.887 86.5493 253.937 63.8008C254.302 62.7708 254.484 61.6325 254.352 60.548C249.071 17.1453 134.667 52.2577 108.5 53.2452C82 54.2452 83 62.2452 96.5 85.2452C110 108.245 74 135.745 43 108.245C12 80.7452 47.5 77.7452 43 62.2452Z" stroke-width="3"/>
         <text id="textBox2-2" x="50%" y="93%">hi</text>
       </svg>`
+      document.getElementById('welcome').classList.remove("welcomePage")
+      document.getElementById('studyBlock').classList.remove("welcomePage")
       break;
     case 3:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -517,6 +523,8 @@ function taskBoxes(liveTasks){
         <path d="M37 57.5452C38.6 76.7452 14.3333 80.5452 2 80.0452V169.5C2 183.307 13.1929 194.5 27 194.5H493.5C507.307 194.5 518.5 183.307 518.5 169.5V11.5452C481 2.04517 462.5 16.5452 462.5 15.5452C462.5 14.5631 430.193 31.9044 465.967 59.9926C467.211 60.9689 468.091 62.5117 467.661 64.0329C461.945 84.212 385.472 80.0452 346.5 80.0452C306 80.0452 304.29 62.3074 304 61.5452C300 51.0452 350.5 11.5452 291.5 3.04517C232.5 -5.45483 239.5 40.0452 259 61.5452C278.176 82.6877 125.221 103.83 89.6995 63.6366C88.5776 62.3671 88.3787 60.5437 88.9383 58.9447C106.399 9.04517 74.3993 9.04517 68.5 9.04517C63.5756 9.04517 21.5 10.5452 37 57.5452Z" stroke-width="3"/>
         <text id="textBox3-3" x="50%" y="75%">hi</text>
       </svg>`
+      document.getElementById('welcome').classList.remove("welcomePage")
+      document.getElementById('studyBlock').classList.remove("welcomePage")
       break;
   }
 }
