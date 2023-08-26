@@ -34,7 +34,7 @@ document.addEventListener('focusout',(e) => {
 
   if (e.target.matches(".taskDescrip")){
     fillTaskBoxes(liveTasks)
-    getTimerDescrips()
+    
   }
 })
 document.addEventListener('click',(e) => {
@@ -508,9 +508,9 @@ class Timer{
     this.timeOfTask2 = 0
     this.timeOfTask3 = 0
 
-    this.task1descrip = "Task 1"
-    this.task2descrip = "Task 2"
-    this.task3descrip = "Task 3"
+    this.task1descrip = ""
+    this.task2descrip = ""
+    this.task3descrip = ""
 
     this.interval = null
     this.currentTime = 0;
@@ -661,13 +661,13 @@ class Timer{
         this.descrip.innerHTML = "No task assigned."
         break;
       case 1:
-        this.descrip.innerHTML = this.task1descrip
+        this.descrip.innerHTML = this.task1descrip === "" ? "Task " + this.currentTask : this.task1descrip
         break;
       case 2:
-        this.descrip.innerHTML = this.task2descrip
+        this.descrip.innerHTML = this.task2descrip === "" ? "Task " + this.currentTask : this.task2descrip
         break;
       case 3:
-        this.descrip.innerHTML = this.task3descrip
+        this.descrip.innerHTML = this.task3descrip === "" ? "Task " + this.currentTask : this.task3descrip
         break;
      }
   }
@@ -706,9 +706,9 @@ function getTimerDescrips(){
   task2 = document.querySelector('[data-taskpos = "2"]')
   task3 = document.querySelector('[data-taskpos = "3"]')
 
-  let task1descrip = "Task 1"
-  let task2descrip = "Task 2"
-  let task3descrip= "Task 3"
+  let task1descrip = ""
+  let task2descrip = ""
+  let task3descrip= ""
 
   if (task1 != null){
     task1descrip = getDescrip(task1)
@@ -786,9 +786,6 @@ function taskBoxes(liveTasks){
 function getDescrip(task){
   const taskNum = task.id.charAt(4)
   taskDescrip = document.getElementById(`task${taskNum}descrip`).value
-  if (taskDescrip === ""){
-    taskDescrip = `Task ${taskNum}`;
-  }
   return taskDescrip
 }
 
@@ -810,6 +807,7 @@ function fillTaskBoxes(liveTasks){
   task1 = document.querySelector('[data-taskpos = "1"]')
   task2 = document.querySelector('[data-taskpos = "2"]')
   task3 = document.querySelector('[data-taskpos = "3"]')
+
   switch(liveTasks){
     case 1:
       if (task1 != null){
@@ -848,8 +846,8 @@ function fillTaskBoxes(liveTasks){
       }
         break;
   }
-
-  
+    
+    getTimerDescrips()
   }
 
  //unsued function
