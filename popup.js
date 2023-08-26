@@ -65,7 +65,6 @@ document.addEventListener('keyup',(e) => {
 //Tab Functionality
 document.getElementById("Tab1").addEventListener("click", () => openTab("timer"));
 document.getElementById("Tab2").addEventListener("click", () => openTab("tasks"));
-document.getElementById("Tab3").addEventListener("click", () => openTab("webBlock"));
 
 function openTab(tabID) {
 
@@ -91,8 +90,6 @@ let gtimeOfBlock = 0
 let gtask1time = 0
 let gtask2time = 0
 let gtask3time = 0
-
-//TODO: understand why passing e into both parameters fucntions
 
 //Time Input UI
 function restrictTimeInput(e, timeValidation){
@@ -141,6 +138,7 @@ function restrictDescripInput(e, descripValidation){
     descripValidated.value = val.substring(0,25);
   }
 }
+
 //Handling value of time input
 noTotal = true;
 function setTime(timeInputHours, timeInputMins, elemId){
@@ -277,6 +275,7 @@ function deleteTask(e) {
   fillTaskBoxes(liveTasks)
   switchAddTask()
 }
+
 function switchAddTask() {
   if(totalTasks >= 3 && !removedTasks.length || noTotal){
     document.getElementById('addTaskIcon').classList.add('disable');
@@ -337,7 +336,8 @@ function updatePos(){
 
   schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
 }
-//Handle scheduling math
+
+//Scheduling math
 function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemId){
   
   let taskNum = elemId.charAt(4)
@@ -478,7 +478,6 @@ function toggleDropdown(){
 
 //Timer Page
 //TODO: tooltip for greyed out start when no study block creates
-
 //TODO: mange task times
 class Timer{
   constructor(root, timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
@@ -573,9 +572,7 @@ class Timer{
 
   skipTask(){}
 }
-
 let timer = new Timer(document.getElementById("timer"), 3601, 0, 0, 0)
-
 
 //Toggles number of svg task boxes
 function taskBoxes(liveTasks){
@@ -682,17 +679,6 @@ function fillTaskBoxes(liveTasks){
 
   
   }
-
-
-// //DEV: debug 
-//  document.getElementById("timeVariables").addEventListener("click", () => {
-//   console.log(gtimeOfBlock)
-//   console.log(gtask1time)
-//   console.log(gtask2time)
-//   console.log(gtask3time)
-//  })
-
-
 
  //unsued function
 function getTime(elemId){
