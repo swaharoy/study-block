@@ -336,7 +336,7 @@ h3 {
     color: var(--tooltip_textcolor);
   }
   
-  .disable #addTaskIcon{
+  .disable #addTaskIcon, .disable #playIcon{
     color: rgb(121, 120, 120);
   }
 
@@ -502,6 +502,9 @@ h3 {
 #timerDetails.welcomePage{
   display:none;
 }
+#skip.welcomePage{
+  display:none;
+}
 
 #createButton{
   height: 75px;
@@ -549,6 +552,69 @@ h3 {
 #controlContainer button i{
   font-size: 35px;
 }
+
+.playtt::after{
+  content: "";
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: var(--tooltip_background);
+  display: none;
+  position: absolute;
+  z-index: 100;
+  margin-top: -45px;
+  transform: translateX(130%);
+}
+
+.playtt::before{
+  display: none;
+  position: absolute;
+  content: attr(data-tooltip);
+  background: var(--tooltip_background);
+  z-index: 100;
+  transform: translateX(-35%);
+  padding: 5px;
+  border-radius: 4px;
+  margin-top:-47px;
+  border: none;
+}
+
+.playtt.disable:hover:before,
+.playtt.disable:hover:after{
+  display: block
+}
+
+.skiptt::before{
+  content: "";
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-width: 0;
+  border-bottom-color: var(--tooltip_background);
+  display: none;
+  position: absolute;
+  transform: translateX(110%);
+  margin-top: 30px
+ }
+
+ .skiptt::after{
+   display: none;
+   position: absolute;
+   content: attr(data-tooltip);
+   background: var(--tooltip_background);
+   z-index: 100;
+   transform: translateX(-40%);
+   padding: 5px;
+   border-radius: 4px;
+   margin-top:-5px;
+   border: none;
+ }
+
+ .skiptt:hover:before,
+ .skiptt:hover:after{
+   display: block
+ }
 
 #timerDetails{
   margin-top: 5px;

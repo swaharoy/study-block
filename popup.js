@@ -182,6 +182,7 @@ function setTime(timeInputHours, timeInputMins, elemId){
   
   timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
   if(!noTotal){
+    document.getElementById("play").classList.remove("disable")
     schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
     getTimerInputs(gtimeOfBlock)
     }
@@ -210,6 +211,7 @@ function addTask(){
     document.getElementById("addTask").dataset.tooltip = "Max three tasks.";
   } else if (noTotal){
     document.getElementById("addTask").dataset.tooltip = "Set total time."
+    document.getElementById("play").classList.add("disable")
   }else if (totalTasks < 3) {
     totalTasks += 1;
     liveTasks +=1;
@@ -480,8 +482,9 @@ function toggleDropdown(){
 }
 
 //Timer Page
-//TODO: tooltip for greyed out start when no study block creates
-//TODO: mange task times
+//TODO: decide when timer is reset by updating studyblock
+//TODO: connect tiemr to study block styling
+
 class Timer{
   constructor(root){
 
@@ -508,7 +511,6 @@ class Timer{
     this.task2descrip = "Task 2"
     this.task3descrip = "Task 3"
 
-
     this.interval = null
     this.currentTime = 0;
 
@@ -523,7 +525,16 @@ class Timer{
     this.skip.addEventListener("click", () => {
       this.timeOfBlock = this.timeOfBlock - this.currentTime;
       this.currentTime = 0;
-      this.taskSelector();
+      console.log(this.timeOfBlock)
+      if(this.timeOfBlock <= 0){
+        this.pause()
+        this.updateTimer()
+        this.descrip.innerHTML = "Study Block completed!"
+        this.skip.classList.add("welcomePage")
+      } else{
+        this.taskSelector()
+      }
+      
     })
 
     this.updateTimer()
@@ -577,6 +588,7 @@ class Timer{
       this.taskSelector()
       if (this.currentTime === 0) return;
     }
+    this.skip.classList.remove("welcomePage")
 
     this.interval = setInterval(() => {
       this.currentTime--;
@@ -630,13 +642,11 @@ class Timer{
       this.descrip.innerHTML = this.task3descrip
     } else {
       this.currentTime = this.timeOfBlock
-      this.descrip.innerHTML = "No task time assigned."
+      this.descrip.innerHTML = "No task assigned."
     }
 
     this.updateTimer()
   }
-
-  skipTask(){}
 }
 
 let timer = new Timer(document.getElementById("timer"));
@@ -681,6 +691,7 @@ function taskBoxes(liveTasks){
       document.getElementById('welcome').classList.add("welcomePage")
       document.getElementById('studyBlock').classList.add("welcomePage")
       document.getElementById('timerDetails').classList.add("welcomePage")
+      document.getElementById('skip').classList.add("welcomePage")
       break;
     case 1:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -691,6 +702,7 @@ function taskBoxes(liveTasks){
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
+      document.getElementById('skip').classList.remove("welcomePage")
       break;
     case 2:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -705,6 +717,7 @@ function taskBoxes(liveTasks){
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
+      document.getElementById('skip').classList.remove("welcomePage")
       break;
     case 3:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -723,6 +736,7 @@ function taskBoxes(liveTasks){
       document.getElementById('welcome').classList.remove("welcomePage")
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
+      document.getElementById('skip').classList.remove("welcomePage")
       break;
   }
 }
