@@ -520,6 +520,12 @@ class Timer{
       }
     })
 
+    this.skip.addEventListener("click", () => {
+      this.timeOfBlock = this.timeOfBlock - this.currentTime;
+      this.currentTime = 0;
+      this.taskSelector();
+    })
+
     this.updateTimer()
   }
 
@@ -607,26 +613,27 @@ class Timer{
     this.task3descrip = task3descrip
 
     this.taskSelector()
-    this.updateTimer()
   }
 
   taskSelector(){
     if (this.timeOfTask1 > 0){
       this.currentTime = this.timeOfTask1
       this.timeOfTask1 = 0
-      this.descrip.innerHTML = "Task 1: " + this.task1descrip
+      this.descrip.innerHTML = this.task1descrip
     } else if (this.timeOfTask2 > 0){
       this.currentTime = this.timeOfTask2
       this.timeOfTask2 = 0
-      this.descrip.innerHTML = "Task 2: " + this.task2descrip
+      this.descrip.innerHTML = this.task2descrip
     } else if (this.timeOfTask3 > 0){
       this.currentTime = this.timeOfTask3
       this.timeOfTask3 = 0
-      this.descrip.innerHTML = "Task 3: " + this.task3descrip
+      this.descrip.innerHTML = this.task3descrip
     } else {
       this.currentTime = this.timeOfBlock
       this.descrip.innerHTML = "No task time assigned."
     }
+
+    this.updateTimer()
   }
 
   skipTask(){}
