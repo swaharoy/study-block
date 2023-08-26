@@ -34,6 +34,7 @@ document.addEventListener('focusout',(e) => {
 
   if (e.target.matches(".taskDescrip")){
     fillTaskBoxes(liveTasks)
+    getTimerDescrips()
   }
 })
 document.addEventListener('click',(e) => {
@@ -513,6 +514,7 @@ class Timer{
 
     this.interval = null
     this.currentTime = 0;
+    this.currentTask = 0;
 
     this.play.addEventListener("click", () =>{
       if (this.interval === null){
@@ -539,7 +541,6 @@ class Timer{
 
     this.updateTimer()
   }
-
   updateTimer(){
     const hours = Math.floor(this.currentTime / 3600);
     const minutes = Math.floor((this.currentTime % 3600)/60);
@@ -613,39 +614,62 @@ class Timer{
     this.updateButtons()
   }
 
-  updateTimeInputs(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, task1descrip, task2descrip, task3descrip){
+  updateTimeInputs(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
     this.timeOfBlock = timeOfBlock
 
     this.timeOfTask1 = timeOfTask1
     this.timeOfTask2 = timeOfTask2
     this.timeOfTask3 = timeOfTask3
 
+    this.taskSelector()
+  }
+
+  updateTimeDescrips(task1descrip, task2descrip, task3descrip){
     this.task1descrip = task1descrip
     this.task2descrip = task2descrip
     this.task3descrip = task3descrip
 
-    this.taskSelector()
+    this.taskDescripSelector()
   }
 
   taskSelector(){
     if (this.timeOfTask1 > 0){
       this.currentTime = this.timeOfTask1
       this.timeOfTask1 = 0
-      this.descrip.innerHTML = this.task1descrip
+      this.currentTask = 1
     } else if (this.timeOfTask2 > 0){
       this.currentTime = this.timeOfTask2
       this.timeOfTask2 = 0
-      this.descrip.innerHTML = this.task2descrip
+      this.currentTask = 2
     } else if (this.timeOfTask3 > 0){
       this.currentTime = this.timeOfTask3
       this.timeOfTask3 = 0
-      this.descrip.innerHTML = this.task3descrip
+      this.currentTask = 3
     } else {
       this.currentTime = this.timeOfBlock
+      this.currentTask = 0
       this.descrip.innerHTML = "No task assigned."
     }
 
+    this.taskDescripSelector()
     this.updateTimer()
+  }
+
+  taskDescripSelector(){
+     switch(this.currentTask){
+      case 0:
+        this.descrip.innerHTML = "No task assigned."
+        break;
+      case 1:
+        this.descrip.innerHTML = this.task1descrip
+        break;
+      case 2:
+        this.descrip.innerHTML = this.task2descrip
+        break;
+      case 3:
+        this.descrip.innerHTML = this.task3descrip
+        break;
+     }
   }
 }
 
@@ -659,10 +683,6 @@ function getTimerInputs(timeOfBlock){
   let task1time = 0
   let task2time = 0
   let task3time = 0
-
-  let task1descrip = "Task 1"
-  let task2descrip = "Task 2"
-  let task3descrip= "Task 3"
 
   let totalTime = timeOfBlock * 60
   if (task1 != null){
@@ -678,7 +698,29 @@ function getTimerInputs(timeOfBlock){
     task3descrip = getDescrip(task3)
   }
   
-  timer.updateTimeInputs(totalTime, task1time, task2time, task3time, task1descrip, task2descrip, task3descrip)
+  timer.updateTimeInputs(totalTime, task1time, task2time, task3time)
+}
+
+function getTimerDescrips(){
+  task1 = document.querySelector('[data-taskpos = "1"]')
+  task2 = document.querySelector('[data-taskpos = "2"]')
+  task3 = document.querySelector('[data-taskpos = "3"]')
+
+  let task1descrip = "Task 1"
+  let task2descrip = "Task 2"
+  let task3descrip= "Task 3"
+
+  if (task1 != null){
+    task1descrip = getDescrip(task1)
+  }
+  if (task2!=null){
+    task2descrip = getDescrip(task2)
+  }
+  if (task3!=null){
+    task3descrip = getDescrip(task3)
+  }
+
+  timer.updateTimeDescrips(task1descrip, task2descrip, task3descrip)
 }
 
 //Toggles number of svg task boxes
