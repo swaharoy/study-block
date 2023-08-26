@@ -477,12 +477,18 @@ function toggleDropdown(){
 }
 
 //Timer Page
+//TODO: tooltip for greyed out start when no study block creates
+
+//TODO: mange task times
 class Timer{
   constructor(root, timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
     //note: this is returning the span element, not just the innerhtml
     this.hr = root.querySelector("#timerH");
     this.min = root.querySelector("#timerM");
     this.sec = root.querySelector("#timerS");
+
+    //buttons
+    this.play = root.querySelector("#play")
 
     //get spans for total time coutndown
     this.thr = root.querySelector("#tottimerH");
@@ -496,6 +502,15 @@ class Timer{
     this.timeOfTask3 = timeOfTask3
 
     this.interval = null
+
+    this.play.addEventListener("click", () =>{
+      if (this.interval === null){
+        this.start()
+      } else{
+        this.pause()
+      }
+    })
+
   }
 
   updateTimer(){
@@ -508,16 +523,32 @@ class Timer{
       this.hr.classList.add("showH")
       this.sec.classList.add("showH")
       this.hr.textContent = hours.toString().padStart(2, "0") + "h";
+
+      this.thr.classList.add("showH")
+      this.tsec.classList.add("showH")
+      this.thr.textContent = hours.toString().padStart(2, "0") + "h";
     }
     else{
       this.hr.classList.remove("showH")
       this.sec.classList.remove("showH")
       this.sec.textContent = seconds.toString().padStart(2, "0") + "s";
+
+      this.thr.classList.remove("showH")
+      this.tsec.classList.remove("showH")
+      this.tsec.textContent = seconds.toString().padStart(2, "0") + "s";
     }
     this.min.textContent = minutes.toString().padStart(2, "0") + "m";
+    this.tmin.textContent = minutes.toString().padStart(2, "0") + "m";
   }
 
-  updateButtons(){}
+  updateButtons(){
+    if(this.interval === null){
+      this.play.innerHTML = `<i class='material-symbols-outlined disable'>play_circle</i>`
+    } else{
+      this.play.innerHTML = `<i class='material-symbols-outlined disable'>pause_circle</i>`
+    }
+
+  }
 
   start(){
     if (this.timeOfBlock === 0) return;
@@ -530,18 +561,21 @@ class Timer{
       this.pause();
     }
     }, 1000);
+
+  this.updateButtons()
   }
 
   pause(){
     clearInterval(this.interval);
     this.interval = null;
+    this.updateButtons()
   }
 
   skipTask(){}
 }
 
-let timer = new Timer(document.getElementById("timerText"), 3601, 0, 0, 0)
-timer.start()
+let timer = new Timer(document.getElementById("timer"), 3601, 0, 0, 0)
+
 
 //Toggles number of svg task boxes
 function taskBoxes(liveTasks){

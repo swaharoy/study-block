@@ -466,19 +466,19 @@ h3 {
 }
 
 
-#timerH{
+#timerH, #tottimerH{
   display: none;
 }
 
-#timerH.showH{
+#timerH.showH, #tottimerH.showH{
   display: inline;
 }
 
-#timerS.showH{
+#timerS.showH, #tottimerS.showH{
   display: none;
 }
 
-#timerS{
+#timerS, #tottimerS{
   display: inline;
 }
 
@@ -526,13 +526,14 @@ h3 {
 }
 
 #timerContainer{
-  padding: 10px;
+  padding: 5px;
+  padding-left: 10px;
   display: grid;
   grid-template-columns: 4fr 1fr;
   align-items: center;
   background-color: var(--outline_select);
   border-radius: 15px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 #timerText{
   font-size: 70px;
