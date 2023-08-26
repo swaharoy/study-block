@@ -525,9 +525,10 @@ class Timer{
     })
 
     this.skip.addEventListener("click", () => {
+
       this.timeOfBlock = this.timeOfBlock - this.currentTime;
       this.currentTime = 0;
-      console.log(this.timeOfBlock)
+
       if(this.timeOfBlock <= 0){
         this.pause()
         this.updateTimer()
@@ -536,7 +537,6 @@ class Timer{
       } else{
         this.taskSelector()
       }
-      
     })
 
     this.updateTimer()
@@ -637,18 +637,26 @@ class Timer{
       this.currentTime = this.timeOfTask1
       this.timeOfTask1 = 0
       this.currentTask = 1
+      this.skip.innerHTML = `<i class='material-symbols-outlined disable'>skip_next</i>`
+      this.skip.dataset.tooltip = "Skip current task."
     } else if (this.timeOfTask2 > 0){
       this.currentTime = this.timeOfTask2
       this.timeOfTask2 = 0
       this.currentTask = 2
+      this.skip.innerHTML = `<i class='material-symbols-outlined disable'>skip_next</i>`
+      this.skip.dataset.tooltip = "Skip current task."
     } else if (this.timeOfTask3 > 0){
       this.currentTime = this.timeOfTask3
       this.timeOfTask3 = 0
       this.currentTask = 3
+      this.skip.innerHTML = `<i class='material-symbols-outlined disable'>skip_next</i>`
+      this.skip.dataset.tooltip = "Skip current task."
     } else {
       this.currentTime = this.timeOfBlock
       this.currentTask = 0
       this.descrip.innerHTML = "No task assigned."
+      this.skip.innerHTML = `<i class='material-symbols-outlined disable'>stop_circle</i>`
+      this.skip.dataset.tooltip = "Complete Study Block"
     }
 
     this.taskDescripSelector()
