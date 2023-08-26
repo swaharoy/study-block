@@ -181,7 +181,10 @@ function setTime(timeInputHours, timeInputMins, elemId){
 
   
   timeScheduled(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
-  if(!noTotal){schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)}
+  if(!noTotal){
+    schedulingWidths(gtimeOfBlock, gtask1time, gtask2time, gtask3time)
+    getTimerInputs(gtimeOfBlock)
+    }
 }
 function setTotalTime(){
   const timeOfBlockInputHours = document.getElementById("timeOfBlockHours").value;
@@ -480,27 +483,27 @@ function toggleDropdown(){
 //TODO: tooltip for greyed out start when no study block creates
 //TODO: mange task times
 class Timer{
-  constructor(root, timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
-    //note: this is returning the span element, not just the innerhtml
+  constructor(root){
+
     this.hr = root.querySelector("#timerH");
     this.min = root.querySelector("#timerM");
     this.sec = root.querySelector("#timerS");
 
-    //buttons
-    this.play = root.querySelector("#play")
+    this.descrip = root.querySelector("#timerDescrip");
 
-    //get spans for total time coutndown
     this.thr = root.querySelector("#tottimerH");
     this.tmin = root.querySelector("#tottimerM");
     this.tsec = root.querySelector("#tottimerS");
 
-    //time values
-    this.timeOfBlock = timeOfBlock
-    this.timeOfTask1 = timeOfTask1
-    this.timeOfTask2 = timeOfTask2
-    this.timeOfTask3 = timeOfTask3
+    this.play = root.querySelector("#play")
+
+    this.timeOfBlock = 0
+    this.timeOfTask1 = 0
+    this.timeOfTask2 = 0
+    this.timeOfTask3 = 0
 
     this.interval = null
+    this.currentTime = 0;
 
     this.play.addEventListener("click", () =>{
       if (this.interval === null){
@@ -510,34 +513,42 @@ class Timer{
       }
     })
 
+    this.updateTimer()
   }
 
   updateTimer(){
-    //Separate h m s
-    const hours = Math.floor(this.timeOfBlock / 3600);
-    const minutes = Math.floor((this.timeOfBlock % 3600)/60);
-    const seconds = (this.timeOfBlock % 3600) % 60;
+    const hours = Math.floor(this.currentTime / 3600);
+    const minutes = Math.floor((this.currentTime % 3600)/60);
+    const seconds = (this.currentTime % 3600) % 60;
+
+    const thours = Math.floor(this.timeOfBlock / 3600);
+    const tminutes = Math.floor((this.timeOfBlock % 3600)/60);
+    const tseconds = (this.timeOfBlock % 3600) % 60;
 
     if (hours > 0){
       this.hr.classList.add("showH")
       this.sec.classList.add("showH")
       this.hr.textContent = hours.toString().padStart(2, "0") + "h";
-
-      this.thr.classList.add("showH")
-      this.tsec.classList.add("showH")
-      this.thr.textContent = hours.toString().padStart(2, "0") + "h";
     }
     else{
       this.hr.classList.remove("showH")
       this.sec.classList.remove("showH")
       this.sec.textContent = seconds.toString().padStart(2, "0") + "s";
+    }
 
+    this.min.textContent = minutes.toString().padStart(2, "0") + "m";
+    
+    if (thours > 0){
+      this.thr.classList.add("showH")
+      this.tsec.classList.add("showH")
+      this.thr.textContent = thours.toString().padStart(2, "0") + "h";
+    } else{
       this.thr.classList.remove("showH")
       this.tsec.classList.remove("showH")
-      this.tsec.textContent = seconds.toString().padStart(2, "0") + "s";
+      this.tsec.textContent = tseconds.toString().padStart(2, "0") + "s";
     }
-    this.min.textContent = minutes.toString().padStart(2, "0") + "m";
-    this.tmin.textContent = minutes.toString().padStart(2, "0") + "m";
+    this.tmin.textContent = tminutes.toString().padStart(2, "0") + "m";
+
   }
 
   updateButtons(){
@@ -550,14 +561,22 @@ class Timer{
   }
 
   start(){
-    if (this.timeOfBlock === 0) return;
+    if (this.currentTime === 0){
+      this.taskSelector()
+      if (this.currentTime === 0) return;
+    }
 
     this.interval = setInterval(() => {
+      this.currentTime--;
       this.timeOfBlock--;
       this.updateTimer();
 
-    if (this.timeOfBlock === 0) {
-      this.pause();
+    if (this.currentTime === 0) {
+      this.taskSelector()
+      console.log(this.timeOfBlock)
+      if (this.currentTime === 0){
+        this.pause();
+      }
     }
     }, 1000);
 
@@ -570,9 +589,63 @@ class Timer{
     this.updateButtons()
   }
 
+  updateTimeInputs(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
+    this.timeOfBlock = timeOfBlock
+    this.timeOfTask1 = timeOfTask1
+    this.timeOfTask2 = timeOfTask2
+    this.timeOfTask3 = timeOfTask3
+    this.taskSelector()
+    this.updateTimer()
+  }
+
+  taskSelector(){
+    if (this.timeOfTask1 > 0){
+      this.currentTime = this.timeOfTask1
+      this.timeOfTask1 = 0
+    } else if (this.timeOfTask2 > 0){
+      this.currentTime = this.timeOfTask2
+      this.timeOfTask2 = 0
+    } else if (this.timeOfTask3 > 0){
+      this.currentTime = this.timeOfTask3
+      this.timeOfTask3 = 0
+    } else {
+      this.currentTime = this.timeOfBlock
+    }
+  }
+
   skipTask(){}
 }
-let timer = new Timer(document.getElementById("timer"), 3601, 0, 0, 0)
+
+let timer = new Timer(document.getElementById("timer"));
+
+function getTimerInputs(timeOfBlock){
+  task1 = document.querySelector('[data-taskpos = "1"]')
+  task2 = document.querySelector('[data-taskpos = "2"]')
+  task3 = document.querySelector('[data-taskpos = "3"]')
+
+  task1time = 0
+  task2time = 0
+  task3time = 0
+
+  totalTime = timeOfBlock * 60
+  if (task1 != null){
+    task1time = getTaskTime(task1) * 60
+  }
+  if (task2!=null){
+    task2time = getTaskTime(task2) * 60
+  }
+  if (task3!=null){
+    task3time = getTaskTime(task3) * 60
+  }
+  
+  runTimer(totalTime, task1time, task2time, task3time)
+}
+
+function runTimer(timeOfBlock, timeOfTask1=0, timeOfTask2=0, timeOfTask3=0){
+  timer.updateTimeInputs(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3)
+}
+  
+// let timer = new Timer(document.getElementById("timer"), 3601, 0, 0, 0)
 
 //Toggles number of svg task boxes
 function taskBoxes(liveTasks){
@@ -629,11 +702,27 @@ function taskBoxes(liveTasks){
       break;
   }
 }
+
 function getDescrip(task){
   const taskNum = task.id.charAt(4)
   taskDescrip = document.getElementById(`task${taskNum}descrip`).value
   return taskDescrip
 }
+
+function getTaskTime(task){
+  const taskNum = task.id.charAt(4)
+ 
+  const timeOfTaskInputHours = document.getElementById(`task${taskNum}timeHours`).value;
+  const timeOfTaskInputMins = document.getElementById(`task${taskNum}timeMins`).value;
+
+  const hours = parseInt(timeOfTaskInputHours)
+  const minutes = parseInt(timeOfTaskInputMins)
+
+  const time = (hours * 60) + minutes
+
+  return time
+}
+
 function fillTaskBoxes(liveTasks){
   task1 = document.querySelector('[data-taskpos = "1"]')
   task2 = document.querySelector('[data-taskpos = "2"]')
