@@ -310,6 +310,7 @@ taskList.addEventListener('dragover', e => {
 
   updatePos()
   fillTaskBoxes(liveTasks)
+  getTimerInputs(gtimeOfBlock)
 })
 function reorderList(y){
   const draggables = [...document.getElementsByClassName("draggable")]
