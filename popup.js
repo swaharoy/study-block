@@ -3,6 +3,7 @@
 //TODO: implement progress bar
 //TODO: restrict length of text in input
 //TODO: first time entering time, takes double click to exit focus
+
 //Event Delegation
 document.addEventListener('dragstart',(e) => {
   if (e.target.matches(".draggable")){
@@ -476,6 +477,71 @@ function toggleDropdown(){
 }
 
 //Timer Page
+class Timer{
+  constructor(root, timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3){
+    //note: this is returning the span element, not just the innerhtml
+    this.hr = root.querySelector("#timerH");
+    this.min = root.querySelector("#timerM");
+    this.sec = root.querySelector("#timerS");
+
+    //get spans for total time coutndown
+    this.thr = root.querySelector("#tottimerH");
+    this.tmin = root.querySelector("#tottimerM");
+    this.tsec = root.querySelector("#tottimerS");
+
+    //time values
+    this.timeOfBlock = timeOfBlock
+    this.timeOfTask1 = timeOfTask1
+    this.timeOfTask2 = timeOfTask2
+    this.timeOfTask3 = timeOfTask3
+
+    this.interval = null
+  }
+
+  updateTimer(){
+    //Separate h m s
+    const hours = Math.floor(this.timeOfBlock / 3600);
+    const minutes = Math.floor((this.timeOfBlock % 3600)/60);
+    const seconds = (this.timeOfBlock % 3600) % 60;
+
+    if (hours > 0){
+      this.hr.classList.add("showH")
+      this.sec.classList.add("showH")
+      this.hr.textContent = hours.toString().padStart(2, "0") + "h";
+    }
+    else{
+      this.hr.classList.remove("showH")
+      this.sec.classList.remove("showH")
+      this.sec.textContent = seconds.toString().padStart(2, "0") + "s";
+    }
+    this.min.textContent = minutes.toString().padStart(2, "0") + "m";
+  }
+
+  updateButtons(){}
+
+  start(){
+    if (this.timeOfBlock === 0) return;
+
+    this.interval = setInterval(() => {
+      this.timeOfBlock--;
+      this.updateTimer();
+
+    if (this.timeOfBlock === 0) {
+      this.pause();
+    }
+    }, 1000);
+  }
+
+  pause(){
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
+  skipTask(){}
+}
+
+let timer = new Timer(document.getElementById("timerText"), 3601, 0, 0, 0)
+timer.start()
 
 //Toggles number of svg task boxes
 function taskBoxes(liveTasks){
@@ -583,7 +649,6 @@ function fillTaskBoxes(liveTasks){
   
   }
 
-  
 
 // //DEV: debug 
 //  document.getElementById("timeVariables").addEventListener("click", () => {

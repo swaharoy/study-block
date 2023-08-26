@@ -466,6 +466,21 @@ h3 {
 }
 
 
+#timerH{
+  display: none;
+}
+
+#timerH.showH{
+  display: inline;
+}
+
+#timerS.showH{
+  display: none;
+}
+
+#timerS{
+  display: inline;
+}
 
 #welcome.welcomePage{
   display: block;
@@ -511,19 +526,27 @@ h3 {
 }
 
 #timerContainer{
-  display: flex;
-  justify-content: space-evenly;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
   align-items: center;
   background-color: var(--outline_select);
   border-radius: 15px;
   margin-top: 10px;
 }
 #timerText{
-  font-size: 75px;
+  font-size: 70px;
   color: var(--tab-background)
 }
-#timerContainer button i{
-  font-size: 40px;
+
+#controlContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#controlContainer button i{
+  font-size: 35px;
 }
 
 #timerDetails{

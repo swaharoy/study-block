@@ -43,12 +43,22 @@
             <div id="welcome" class="welcomePage">Welcome to</div>
             <div id="studyBlock" class="welcomePage">StudyBlock</div>
             <div id='timerContainer'>
-                <div id='timerText'>00h 00m</div>
-                <button><i class='material-symbols-outlined disable'>play_circle</i></button>
+                <div id='timerText'>
+                    <span id='timerH' class="showH">00h</span> 
+                    <span id='timerM'>00m</span> 
+                    <span id='timerS' class="showH">00s</span> 
+                </div>
+                <div id="controlContainer">
+                    <button><i class='material-symbols-outlined disable'>play_circle</i></button>
+                    <button><i class='material-symbols-outlined disable'>skip_next</i></button>
+                </div>
             </div>
             <div id="timerDetails" class="welcomePage">
                 <div>Task: description.</div>
-                <div>Total Time Remaining: 00h 00s</div>
+                <div>Total Time Remaining:
+                    <span id='tottimerH' class="showH">00h</span> 
+                    <span id='tottimerM'>00m</span> 
+                    <span id='tottimerS' class="showH">00s</span></div>
             </div>
             <div id="taskTimerContainer">
                <button id="createButton">Create Study Block!</button>
