@@ -484,8 +484,8 @@ function toggleDropdown(){
 }
 
 //Timer Page
-//TODO: decide when timer is reset by updating studyblock
 //TODO: connect tiemr to study block styling
+//TODO: add warning for rearranging changing time inpiut for study block after pressing start
 
 class Timer{
   constructor(root){

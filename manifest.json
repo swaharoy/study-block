@@ -10,6 +10,13 @@
 
   "action": {
         "default_popup": "popup.html"
+  },
+
+  "icons": {
+    "128": "icons/StudyBlock128.png",
+    "48": "icons/StudyBlock48.png",
+    "32": "icons/StudyBlock32.png",
+    "16": "icons/StudyBlock16.png"
   }
 
   
