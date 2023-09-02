@@ -530,6 +530,10 @@ class Timer{
 
       this.timeOfBlock = this.timeOfBlock - this.currentTime;
       this.currentTime = 0;
+      if (this.taskBox != null){
+        this.taskBox.style.fillOpacity = 1
+      }
+      
 
       if(this.timeOfBlock <= 0){
         this.pause()
@@ -542,12 +546,6 @@ class Timer{
     })
 
     this.updateTimer()
-  }
-
-  updateTaskOpacity(){
-    if (this.taskBox != null){
-      this.taskBox.style.fillOpacity = (this.timeOfTask - this.currentTime)/this.timeOfTask
-    }
   }
 
   updateTimer(){
@@ -583,7 +581,9 @@ class Timer{
     }
     this.tmin.textContent = tminutes.toString().padStart(2, "0") + "m";
 
-    this.updateTaskOpacity()
+    if (this.taskBox != null){
+      this.taskBox.style.fillOpacity = (this.timeOfTask - this.currentTime)/this.timeOfTask
+    }
   }
 
   updateButtons(){

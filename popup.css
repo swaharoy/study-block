@@ -644,6 +644,7 @@ svg{
   display: block;
   stroke: var(--outline_select);
   fill: none;
+  fill-opacity: 0;
   width: 400px;
   padding: 0;
   margin: 0;
