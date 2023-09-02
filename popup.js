@@ -269,7 +269,6 @@ function deleteTask(e) {
   const deleteTask = document.getElementById(`task${taskNum}`)
   const node = document.getElementById("taskList").removeChild(deleteTask)
   removedTasks.push(node)
-  console.log(removedTasks)
 
   taskBoxes(liveTasks)
   updatePos()
@@ -326,7 +325,6 @@ function updatePos(){
   let spacing = (taskList.bottom - taskList.top)/totalTasks
   tasks.forEach((task) => {
     let height = task.getBoundingClientRect().top 
-    console.log(height)
     if (height < taskList.top + spacing){
       task.dataset.taskpos = "1"
     } else if (height >= taskList.top + spacing && height < taskList.top + (spacing * 2)){
@@ -352,11 +350,7 @@ function inTimeOfBlock(timeOfBlock, timeOfTask1, timeOfTask2, timeOfTask3, elemI
       timeInput.classList.remove('timeError')
     })    
     document.getElementById('progressBar').classList.remove('timeError');
-
-    console.log("in bound")
   } else {
-    console.log(`out of bound: timeInput${taskNum}`)
-    console.log("hey:" +  document.getElementById(`timeInput${taskNum}`).classList)
     document.getElementById(`timeInput${taskNum}`).classList.add('timeError');
     document.getElementById('progressBar').classList.add('timeError');
     if(taskNum === "B"){
@@ -479,8 +473,6 @@ function toggleDropdown(){
 }
 
 //Timer Page
-//TODO: connect tiemr to study block styling
-//TODO: add warning for rearranging changing time inpiut for study block after pressing start
 
 class Timer{
   constructor(root){
@@ -608,7 +600,6 @@ class Timer{
 
     if (this.currentTime === 0) {
       this.taskSelector()
-      console.log(this.timeOfBlock)
       if (this.currentTime === 0){
         this.pause();
       }

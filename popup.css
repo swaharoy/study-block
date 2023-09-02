@@ -1,5 +1,3 @@
-/* TODO: add hover darkness on all clickable elements + click cursor*/
-
 /* themes */
 .green{
   --text_color: black;
@@ -167,6 +165,10 @@ body {
 
 label, input::placeholder{
   color: var(--outline);
+}
+
+button, #themeButton{
+  cursor: pointer;
 }
 
 .material-symbols-outlined{
