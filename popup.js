@@ -743,6 +743,7 @@ function taskBoxes(liveTasks){
       document.getElementById('studyBlock').classList.add("welcomePage")
       document.getElementById('timerDetails').classList.add("welcomePage")
       document.getElementById('skip').classList.add("welcomePage")
+      document.getElementById('studyBlockIcon').classList.add("welcomePage")
       break;
     case 1:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -754,6 +755,7 @@ function taskBoxes(liveTasks){
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
       document.getElementById('skip').classList.remove("welcomePage")
+      document.getElementById('studyBlockIcon').classList.remove("welcomePage")
       break;
     case 2:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -769,6 +771,7 @@ function taskBoxes(liveTasks){
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
       document.getElementById('skip').classList.remove("welcomePage")
+      document.getElementById('studyBlockIcon').classList.remove("welcomePage")
       break;
     case 3:
       document.getElementById('taskTimerContainer').innerHTML = `
@@ -788,6 +791,7 @@ function taskBoxes(liveTasks){
       document.getElementById('studyBlock').classList.remove("welcomePage")
       document.getElementById('timerDetails').classList.remove("welcomePage")
       document.getElementById('skip').classList.remove("welcomePage")
+      document.getElementById('studyBlockIcon').classList.remove("welcomePage")
       break;
   }
 }
