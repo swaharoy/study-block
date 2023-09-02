@@ -331,7 +331,6 @@ h3 {
     display: block
   }
 
-  /* TODO: ERROR  */
   .disable{
     color: var(--tooltip_textcolor);
   }
@@ -585,6 +584,7 @@ h3 {
   position: absolute;
   content: attr(data-tooltip);
   background: var(--tooltip_background);
+  color: var(--tooltip_textcolor);
   z-index: 100;
   transform: translateX(-35%);
   padding: 5px;
@@ -616,6 +616,7 @@ h3 {
    position: absolute;
    content: attr(data-tooltip);
    background: var(--tooltip_background);
+   color: var(--tooltip_textcolor);
    z-index: 100;
    transform: translateX(-40%);
    padding: 5px;
