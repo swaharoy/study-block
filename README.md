@@ -16,7 +16,7 @@
 ## Key Features
 
 * Schedule up to three tasks with custom time intervals and descriptions
-* Drag an drop tasks to reorder
+* Drag and drop tasks to reorder
 * Progress bar displays time scheduled and time remaining
 * Error detection for over-scheduling
 * Timer shows task time and total time
