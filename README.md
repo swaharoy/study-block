@@ -10,6 +10,7 @@
 <h4 align="center">A productivity Chrome extension with task management and timer functionalities.</h4>
 
 <p align="center">
+  <img src="StudyBlockPreview.png">
 </p>
 
 ## Key Features
